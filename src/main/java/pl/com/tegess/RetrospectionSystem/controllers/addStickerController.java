@@ -8,30 +8,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.Sticker;
-import pl.com.tegess.RetrospectionSystem.model.StickerComposite;
+import pl.com.tegess.RetrospectionSystem.model.StickerLeaf;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
 /**
  * Created by Szymek.
  */
 @Controller
-public class MakeStickerComposite {
+public class AddStickerController {
 
     @Autowired
     ConfigurableApplicationContext applicationContext;
 
-    @RequestMapping("makeStickerComposite")
-    public String makeStickerComposite(@RequestParam(value = "token") String token,
-                                       @RequestParam(value = "type") String type,
-                                       @RequestParam(value = "content") String content){
+    @RequestMapping("addSticker")
+    public String addSticker(@RequestParam(value = "token") String token,
+                             @RequestParam(value = "content") String content,
+                             @RequestParam(value = "author") String author,
+                             @RequestParam(value = "type") String type,
+                             Model model){
 
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
-        Sticker sticker = retrospection.getStickerByContent(type, content);
-        Sticker stickerComposite = new StickerComposite(sticker.getContent(), sticker.getAuthor());
-        retrospection.removeSticker(sticker, type);
-        retrospection.addSticker(stickerComposite, type);
+        Sticker sticker = new StickerLeaf(content, author);
+        retrospection.addSticker(sticker, type);
         repository.modifyRetrospection(retrospection);
-        return "redirect:retrospection?token="+token;
+        return "redirect:retrospection?token=" + token;
     }
 }
