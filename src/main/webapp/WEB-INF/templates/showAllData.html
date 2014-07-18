@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Retrospection System</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container" style="text-align: center">
+    <div>
+        <h1>
+            <p>All data saved in database:</p>
+        </h1>
+        <table class="table table-striped" style="text-align: left">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Author</th>
+                    <th>Members Tokens</th>
+                    <th>Question</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${retrospections.empty}">
+                    <td colspan="4">No data to display!</td>
+                </tr>
+                <tr th:each="retrospection: ${retrospections}">
+                    <td th:text="${retrospection.retrospectionId}"></td>
+                    <td th:text="${retrospection.author}"></td>
+                    <td th:text="${retrospection.membersTokensString}"></td>
+                    <td th:text="${retrospection.question}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

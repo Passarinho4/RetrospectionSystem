@@ -2,16 +2,14 @@ package pl.com.tegess.RetrospectionSystem.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.com.tegess.RetrospectionSystem.model.DefaultIdGenerator;
-import pl.com.tegess.RetrospectionSystem.model.IdGenerator;
+import pl.com.tegess.RetrospectionSystem.model.DefaultGenerator;
+import pl.com.tegess.RetrospectionSystem.model.Generator;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepositoryMongoDB;
 
 /**
  * Created by Szymek.
@@ -32,9 +30,9 @@ public class CreateNewController {
                          @RequestParam(value = "question") String question,
                          @RequestParam(value = "membersNumber") Integer membersNumber,
                          Model model) {
-        IdGenerator generator = new DefaultIdGenerator();
-        Retrospection retrospection = new Retrospection(generator.getId(), author, question, membersNumber);
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        Generator generator = new DefaultGenerator(repository);
+        Retrospection retrospection = new Retrospection(generator.getId(), author, question, generator.getTokens(membersNumber));
         repository.insertRetrospection(retrospection);
         model.addAttribute("question", question);
         model.addAttribute("membersNumber", membersNumber);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 
@@ -48,7 +49,7 @@ public class RetrospectionRepositoryMongoDB implements RetrospectionRepository {
     @Override
     public Retrospection getRetrospectionByToken(String token) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("token").is(token));
+        query.addCriteria(Criteria.where("membersTokens").is(token));
         return mongoTemplate.findOne(query, Retrospection.class);
     }
 
@@ -57,5 +58,17 @@ public class RetrospectionRepositoryMongoDB implements RetrospectionRepository {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
         return mongoTemplate.exists(query, Retrospection.class);
+    }
+
+    @Override
+    public boolean containsRetrospectionByToken(String token) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("token").is(token));
+        return mongoTemplate.exists(query, Retrospection.class);
+    }
+
+    @Override
+    public void modifyRetrospection(Retrospection retrospection) {
+        mongoTemplate.save(retrospection);
     }
 }
