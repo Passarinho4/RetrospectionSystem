@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://java.sun.com/jsf/html">
 <head>
     <title>Retrospection System</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -14,11 +14,25 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container" style="text-align: center">
+<div class="container">
     <div>
         <h1>
-            <p th:text="${question}"></p>
-            <p th:text="${membersNumber}"></p>
+            <form class="form-horizontal" action="createRetrospection" method="get" style="width: 500px; margin: 0 auto; text-align: center">
+                <h2 class="form-heading">Please, fill in the form:</h2>
+                <div class="input-group"  style="width: 500px;">
+                    <span class="input-group-addon" style="width: 150px">Your question:</span>
+                    <input type="text" class="form-control" name="question"/>
+                </div>
+                <div class="input-group"  style="width: 500px;">
+                    <span class="input-group-addon" style="width: 150px">Members number:</span>
+                    <input type="number" class="form-control" name="membersNumber"/>
+                </div>
+                <div class="input-group"  style="width: 500px;">
+                    <span class="input-group-addon" style="width: 150px">Author:</span>
+                    <input type="text" class="form-control" name="author"/>
+                </div>
+                <input type="submit" class="form-control btn-primary" style="width:500px;" value="Create form!"/>
+            </form>
         </h1>
     </div>
 </div>

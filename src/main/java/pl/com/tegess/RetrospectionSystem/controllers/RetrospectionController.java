@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.StickerComposite;
 import pl.com.tegess.RetrospectionSystem.model.StickerLeaf;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Szymek.
@@ -27,7 +32,8 @@ public class RetrospectionController {
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         if(retrospection==null) return "404";
         model.addAttribute("token", token);
-        model.addAttribute("author", retrospection.getAuthor());
+        model.addAttribute("author", token);
+        model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList("mad"));
         model.addAttribute("madStickerList",retrospection.getMadStickersList());
         model.addAttribute("gladStickerList",retrospection.getGladStickerList());
         model.addAttribute("newIdeaStickerList",retrospection.getNewIdeaStickerList());

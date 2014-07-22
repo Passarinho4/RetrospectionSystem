@@ -11,12 +11,14 @@ public class StickerComposite implements Sticker, Iterable {
 
     private final String content;
     private final String author;
+    private Integer votes;
 
     private List<Sticker> stickerList = new ArrayList<Sticker>();
 
     public StickerComposite(String content, String author) {
         this.content = content;
         this.author = author;
+        this.votes = 0;
     }
 
     public void addChild(Sticker child){
@@ -35,6 +37,26 @@ public class StickerComposite implements Sticker, Iterable {
     @Override
     public String getAuthor() {
         return this.author;
+    }
+
+    @Override
+    public Integer getVotes() {
+        return votes;
+    }
+
+    @Override
+    public void addVote() {
+        this.votes++;
+    }
+
+    @Override
+    public boolean isComposite() {
+        return true;
+    }
+
+    @Override
+    public String getShortContent() {
+        return this.content; //there you should change it to return first 10 chars
     }
 
     @Override

@@ -50,6 +50,7 @@ public class RetrospectionRepositoryMongoDB implements RetrospectionRepository {
     public Retrospection getRetrospectionByToken(String token) {
         Query query = new Query();
         query.addCriteria(Criteria.where("membersTokens").is(token));
+        query.addCriteria(Criteria.where("status").is(true));
         return mongoTemplate.findOne(query, Retrospection.class);
     }
 

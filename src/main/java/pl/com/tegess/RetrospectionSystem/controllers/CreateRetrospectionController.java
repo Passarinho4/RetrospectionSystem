@@ -15,17 +15,12 @@ import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
  * Created by Szymek.
  */
 @Controller
-public class CreateNewController {
+public class CreateRetrospectionController {
 
     @Autowired
     ConfigurableApplicationContext applicationContext;
 
-    @RequestMapping("/createNew/")
-    public String createNew(Model model){
-        return "createNew";
-    }
-
-    @RequestMapping("/createNew/signUp")
+    @RequestMapping("createRetrospection")
     public String signUp(@RequestParam(value = "author") String author,
                          @RequestParam(value = "question") String question,
                          @RequestParam(value = "membersNumber") Integer membersNumber,
@@ -34,8 +29,7 @@ public class CreateNewController {
         Generator generator = new DefaultGenerator(repository);
         Retrospection retrospection = new Retrospection(generator.getId(), author, question, generator.getTokens(membersNumber));
         repository.insertRetrospection(retrospection);
-        model.addAttribute("question", question);
-        model.addAttribute("membersNumber", membersNumber);
-        return "signUp";
+        return "redirect:retrospectionPanel?id="+ retrospection.getRetrospectionId();
     }
+
 }

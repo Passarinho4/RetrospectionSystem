@@ -28,18 +28,40 @@
             </tr>
             <tr th:each="madSticker: ${madStickerList}">
                 <td style="text-align: center">
-                    <div th:text="${madSticker.content}"></div>
-                    <form method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px">
-                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                        <input type="hidden" name="type" value="mad" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
-                        <button class="btn btn-xs btn-success">Make Parent</button>
-                    </form>
+                    <h5>
+                        <div th:text="${madSticker.content}"></div>
+                    </h5>
+                    <h6>Votes:
+                        <span th:text="${madSticker.votes}"></span>
+                    </h6>
+
+                    <div class="btn-group"  style="float:left; margin-left:5px">
+                        <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown">
+                            Choose Parent <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li th:each="compositeSticker : ${madCompositeStickersList}">
+                                <a th:href="cos" th:text="${compositeSticker.shortContent}"></a>
+                            </li>
+                        </ul>
+                    </div>
                     <form method="get" action="removeSticker" class="form-horizontal" style="float:left; margin-left:5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="mad" />
                         <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
+                    </form>
+                    <form method="get" action="voteForSticker" class="form-horizontal" style="float:left; margin-left:5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form>
+                    <form th:if="${!madSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <button class="btn btn-xs btn-info">Make Parent</button>
                     </form>
                 </td>
             </tr>
@@ -71,7 +93,12 @@
             </tr>
             <tr th:each="gladSticker: ${gladStickerList}">
                 <td style="text-align: center">
-                    <div th:text="${gladSticker.content}"></div>
+                    <h5>
+                        <div th:text="${gladSticker.content}"></div>
+                    </h5>
+                    <h6>Votes:
+                        <span th:text="${gladSticker.votes}"></span>
+                    </h6>
                     <form method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="glad" />
@@ -83,6 +110,12 @@
                         <input type="hidden" name="type" value="glad" />
                         <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
+                    </form>
+                    <form method="get" action="voteForSticker" class="form-horizontal" style="float:left; margin-left:5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="glad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
                 </td>
             </tr>
@@ -114,7 +147,12 @@
             </tr>
             <tr th:each="newIdeaSticker: ${newIdeaStickerList}">
                 <td style="text-align: center">
-                    <div th:text="${newIdeaSticker.content}"></div>
+                    <h5>
+                        <div th:text="${newIdeaSticker.content}"></div>
+                    </h5>
+                    <h6>Votes:
+                        <span th:text="${newIdeaSticker.votes}"></span>
+                    </h6>
                     <form method="get" action="makeStickerComposite" class="form-horizontal"  style="float:left; margin-left:5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="newIdea" />
@@ -126,6 +164,12 @@
                         <input type="hidden" name="type" value="newIdea" />
                         <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
+                    </form>
+                    <form method="get" action="voteForSticker" class="form-horizontal" style="float:left; margin-left:5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="newIdea" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
                 </td>
             </tr>

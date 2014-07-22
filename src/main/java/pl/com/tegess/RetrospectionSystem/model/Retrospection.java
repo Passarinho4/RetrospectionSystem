@@ -23,7 +23,6 @@ public class Retrospection {
     private List<Sticker> newIdeaStickerList = new ArrayList<Sticker>();
     private boolean status;
 
-
     public Retrospection(String retrospectionId, String author, String question, List<String> membersTokens) {
         this.retrospectionId = retrospectionId;
         this.author = author;
@@ -77,10 +76,11 @@ public class Retrospection {
         }
     }
 
-
     public List<Sticker> getMadStickersList() {
         return madStickersList;
     }
+
+    public List<String> getMembersTokensList() { return membersTokens; }
 
     public List<Sticker> getGladStickerList() {
         return gladStickerList;
@@ -106,7 +106,7 @@ public class Retrospection {
         return author;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -118,4 +118,23 @@ public class Retrospection {
         return membersTokens.contains(token);
     }
 
+    public List<StickerComposite> getCompositeStickersList(String type) {
+        List<StickerComposite> compositeStickersList = new ArrayList<StickerComposite>();
+        Iterator iterator;
+        switch (type){
+            case "mad": iterator = this.madStickersList.iterator();
+                break;
+            case "glad" : iterator = this.gladStickerList.iterator();
+                break;
+            case "newIdea" : iterator = this.newIdeaStickerList.iterator();
+                break;
+            default: iterator = null;
+        }
+        Sticker sticker;
+        while (iterator!= null && iterator.hasNext()){
+            sticker = (Sticker)iterator.next();
+            if (sticker.isComposite()) compositeStickersList.add((StickerComposite)sticker);
+        }
+        return compositeStickersList;
+    }
 }
