@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.w3c.dom.html.HTMLDivElement;
-import pl.com.tegess.RetrospectionSystem.model.Retrospection;
-import pl.com.tegess.RetrospectionSystem.model.Sticker;
-import pl.com.tegess.RetrospectionSystem.model.StickerComposite;
-import pl.com.tegess.RetrospectionSystem.model.StickerLeaf;
+import pl.com.tegess.RetrospectionSystem.model.*;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
 import java.util.ArrayList;
@@ -71,6 +68,28 @@ public class RetrospectionController {
         model.addAttribute("gladStickerList",retrospection.getStickersList("glad", null));
         model.addAttribute("newIdeaStickerList",retrospection.getStickersList("newIdea", null));
         return "showRetrospection";
+    }
+
+    @RequestMapping("createRetrospection")
+    public String signUp(@RequestParam(value = "author") String author,
+                         @RequestParam(value = "question") String question,
+                         @RequestParam(value = "membersNumber") Integer membersNumber,
+                         Model model) {
+        RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        Generator generator = new DefaultGenerator(repository);
+        String id = generator.getId();
+        List<String> tokens = generator.getTokens(membersNumber);
+        tokens.add(id);
+        Retrospection retrospection = new Retrospection(id, author, question, tokens);
+        repository.insertRetrospection(retrospection);
+        return "redirect:retrospectionPanel?id="+ retrospection.getRetrospectionId();
+    }
+
+    @RequestMapping("removeRetrospection")
+    public String removeRetrospection(@RequestParam(value = "id") String id){
+        RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        repository.removeRetrospection(repository.getRetrospectionById(id));
+        return "redirect:";
     }
 
 }

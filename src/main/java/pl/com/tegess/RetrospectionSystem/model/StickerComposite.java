@@ -93,4 +93,5 @@ public class StickerComposite implements Sticker, Iterable {
     }
 
     public List<Sticker> getChildren() { return stickerList;}
+
 }

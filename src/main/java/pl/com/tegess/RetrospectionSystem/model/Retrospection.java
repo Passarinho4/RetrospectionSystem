@@ -144,4 +144,8 @@ public class Retrospection {
         }
         return compositeStickersList;
     }
+
+    public String getMembersTokensString(){
+        return this.membersTokens.toString();
+    }
 }
