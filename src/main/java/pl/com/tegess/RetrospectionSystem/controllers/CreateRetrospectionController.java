@@ -11,6 +11,8 @@ import pl.com.tegess.RetrospectionSystem.model.Generator;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
+import java.util.List;
+
 /**
  * Created by Szymek.
  */
@@ -27,7 +29,10 @@ public class CreateRetrospectionController {
                          Model model) {
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Generator generator = new DefaultGenerator(repository);
-        Retrospection retrospection = new Retrospection(generator.getId(), author, question, generator.getTokens(membersNumber));
+        String id = generator.getId();
+        List<String> tokens = generator.getTokens(membersNumber);
+        tokens.add(id);
+        Retrospection retrospection = new Retrospection(id, author, question, tokens);
         repository.insertRetrospection(retrospection);
         return "redirect:retrospectionPanel?id="+ retrospection.getRetrospectionId();
     }

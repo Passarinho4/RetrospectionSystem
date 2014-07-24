@@ -32,6 +32,7 @@ public class AddStickerController {
         Sticker sticker = new StickerLeaf(content, author);
         retrospection.addSticker(sticker, type);
         repository.modifyRetrospection(retrospection);
+        if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
         return "redirect:retrospection?token=" + token;
     }
 }

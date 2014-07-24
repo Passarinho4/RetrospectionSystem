@@ -7,25 +7,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.StickerComposite;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
 /**
  * Created by Szymek.
  */
 @Controller
-public class RemoveStickerController {
+public class RemoveStickerLeafController {
 
     @Autowired
     ConfigurableApplicationContext applicationContext;
 
-    @RequestMapping("removeSticker")
-    public String removeSticker(@RequestParam(value = "token") String token,
-                                @RequestParam(value = "type") String type,
-                                @RequestParam(value = "content") String content){
-
+    @RequestMapping("removeStickerLeaf")
+    public String removeStickerLeaf(@RequestParam(value = "compositeStickerContent") String compositeStickerContent,
+                                    @RequestParam(value = "leafStickerContent") String leafStickerContent,
+                                    @RequestParam(value = "type") String type,
+                                    @RequestParam(value = "token") String token){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
-        retrospection.removeSticker(retrospection.getStickerByContent(type, content), type);
+        StickerComposite stickerComposite = (StickerComposite)retrospection.getStickerByContent(type, compositeStickerContent);
+        stickerComposite.removeChild(stickerComposite.getChild(leafStickerContent));
         repository.modifyRetrospection(retrospection);
         if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
         return "redirect:retrospection?token=" + token;

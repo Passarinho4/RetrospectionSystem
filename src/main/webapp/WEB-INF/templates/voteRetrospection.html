@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Retrospection System</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container" style="text-align: center; width: 850px">
+    <div>
+        <table class="table table-striped table-bordered" style="text-align: left; width: 250px; float: left; margin-left:10px">
+            <thead>
+            <tr>
+                <th>MAD</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${madStickerList.empty}">
+                <td>No data to display!</td>
+            </tr>
+            <tr th:each="madSticker: ${madStickerList}">
+                <td style="text-align: center">
+                    <h4>
+                        <div class="label label-default" style="display: block; width:230px; background-color: #DDD; color:#333; white-space: normal;">
+                            <p style="margin-top: 10px" th:text="${madSticker.content}"></p>
+                        </div>
+                    </h4>
+                    <div th:if="${madSticker.composite}">
+                        <div th:each="child : ${madSticker.children}">
+                            <h5>
+                                <div class="label label-default" style="display: block; width:230px; background-color: #EEE; color:#333; white-space: normal;">
+                                    <p style="margin-top: 10px" th:text="${child.content}"></p>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                    <h6>Votes:
+                        <span th:text="${madSticker.votes}"></span>
+                    </h6>
+                    <form th:if="${madSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form>
+                    <form th:if="!${madSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Remove vote</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered" style="text-align: left; width: 250px; float: left; margin-left:10px">
+            <thead>
+            <tr>
+                <th>GLAD</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${gladStickerList.empty}">
+                <td>No data to display!</td>
+            </tr>
+            <tr th:each="gladSticker: ${gladStickerList}">
+                <td style="text-align: center">
+                    <h4>
+                        <div class="label label-default" style="display: block; width:230px; background-color: #DDD; color:#333; white-space: normal;">
+                            <p style="margin-top: 10px" th:text="${gladSticker.content}"></p>
+                        </div>
+                    </h4>
+                    <div th:if="${gladSticker.composite}">
+                        <div th:each="child : ${gladSticker.children}">
+                            <h5>
+                                <div class="label label-default" style="display: block; width:230px; background-color: #EEE; color:#333; white-space: normal;">
+                                    <p style="margin-top: 10px" th:text="${child.content}"></p>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                    <h6>Votes:
+                        <span th:text="${gladSticker.votes}"></span>
+                    </h6>
+                    <form th:if="${gladSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="glad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form>
+                    <form th:if="!${gladSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="glad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Remove vote</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered" style="text-align: left; width: 250px; float: left; margin-left:10px">
+            <thead>
+            <tr>
+                <th>NEW IDEA</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${newIdeaStickerList.empty}">
+                <td>No data to display!</td>
+            </tr>
+            <tr th:each="newIdeaSticker: ${newIdeaStickerList}">
+                <td style="text-align: center">
+                    <h4>
+                        <div class="label label-default" style="display: block; width:230px; background-color: #DDD; color:#333; white-space: normal;">
+                            <p style="margin-top: 10px" th:text="${newIdeaSticker.content}"></p>
+                        </div>
+                    </h4>
+                    <div th:if="${newIdeaSticker.composite}">
+                        <div th:each="child : ${newIdeaSticker.children}">
+                            <h5>
+                                <div class="label label-default" style="display: block; width:230px; background-color: #EEE; color:#333; white-space: normal;">
+                                    <p style="margin-top: 10px" th:text="${child.content}"></p>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                    <h6>Votes:
+                        <span th:text="${newIdeaSticker.votes}"></span>
+                    </h6>
+                    <form th:if="${newIdeaSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="newIdea" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form>
+                        <form th:if="!${newIdeaSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
+                            <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                            <input type="hidden" name="type" value="newIdea" />
+                            <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
+                            <button class="btn btn-xs btn-warning">Remove vote</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</body>
+</html>

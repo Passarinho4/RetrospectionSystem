@@ -12,6 +12,7 @@ public class StickerComposite implements Sticker, Iterable {
     private final String content;
     private final String author;
     private Integer votes;
+    private List<String> voted = new ArrayList<String>();
 
     private List<Sticker> stickerList = new ArrayList<Sticker>();
 
@@ -27,6 +28,16 @@ public class StickerComposite implements Sticker, Iterable {
 
     public void removeChild(Sticker child){
         stickerList.remove(child);
+    }
+
+    public Sticker getChild(String content) {
+        Sticker sticker;
+        Iterator iterator = iterator();
+        while(iterator().hasNext()){
+            sticker = (Sticker)iterator.next();
+            if(sticker.getContent().equals(content)) return sticker;
+        }
+        return null;
     }
 
     @Override
@@ -45,8 +56,20 @@ public class StickerComposite implements Sticker, Iterable {
     }
 
     @Override
-    public void addVote() {
+    public void addVote(String token) {
+        this.voted.add(token);
         this.votes++;
+    }
+
+    @Override
+    public void removeVote(String token) {
+        this.voted.remove(token);
+        this.votes--;
+    }
+
+    @Override
+    public void setVotes(Integer votes) {
+        this.votes = votes;
     }
 
     @Override
@@ -56,11 +79,18 @@ public class StickerComposite implements Sticker, Iterable {
 
     @Override
     public String getShortContent() {
-        return this.content; //there you should change it to return first 10 chars
+        return this.content.substring(0, Math.min(20, this.content.length())) + "..."; //first 10 chars of content;
+    }
+
+    @Override
+    public boolean canVote(String token) {
+        return !this.voted.contains(token);
     }
 
     @Override
     public Iterator iterator() {
         return stickerList.iterator();
     }
+
+    public List<Sticker> getChildren() { return stickerList;}
 }

@@ -24,7 +24,7 @@ public class RetrospectionPanelController {
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionById(id);
         model.addAttribute("question", retrospection.getQuestion());
-        model.addAttribute("membersNumber", retrospection.getMembersTokensList().size());
+        model.addAttribute("membersNumber", retrospection.getMembersNumber());
         model.addAttribute("id", id);
         model.addAttribute("status", retrospection.getStatus());
         model.addAttribute("tokensList", retrospection.getMembersTokensList());

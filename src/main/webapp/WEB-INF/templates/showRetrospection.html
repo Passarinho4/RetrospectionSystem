@@ -53,6 +53,9 @@
                             </h5>
                         </div>
                     </div>
+                    <h6>Votes:
+                        <span th:text="${madSticker.votes}"></span>
+                    </h6>
                     <div th:if="${!madSticker.composite}" class="btn-group"  style="float:left; margin-left:5px">
                         <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown">
                             Choose Parent <span class="caret"></span>
@@ -76,6 +79,12 @@
                         <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
                     </form>
+                   <!-- <form method="get" action="voteForSticker" class="form-horizontal" style="float:left; margin-left:5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form> -->
                     <form th:if="${!madSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="mad" />
@@ -135,6 +144,9 @@
                             </h5>
                         </div>
                     </div>
+                    <h6>Votes:
+                        <span th:text="${gladSticker.votes}"></span>
+                    </h6>
                     <div th:if="${!gladSticker.composite}" class="btn-group"  style="float:left; margin-left:5px">
                         <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown">
                             Choose Parent <span class="caret"></span>
@@ -158,6 +170,12 @@
                         <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
                     </form>
+                   <!-- <form method="get" action="voteForSticker" class="form-horizontal" style="float:left; margin-left:5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="glad" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form> -->
                     <form th:if="${!gladSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="glad" />
@@ -217,6 +235,9 @@
                             </h5>
                         </div>
                     </div>
+                    <h6>Votes:
+                        <span th:text="${newIdeaSticker.votes}"></span>
+                    </h6>
                     <div th:if="${!newIdeaSticker.composite}" class="btn-group"  style="float:left; margin-left:5px">
                         <button type="button" class="btn btn-xs btn-success dropdown-toggle" data-toggle="dropdown">
                             Choose Parent <span class="caret"></span>
@@ -240,6 +261,12 @@
                         <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
                     </form>
+                  <!--  <form method="get" action="voteForSticker" class="form-horizontal" style="float:left; margin-left:5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="newIdea" />
+                        <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
+                        <button class="btn btn-xs btn-warning">Vote</button>
+                    </form> -->
                     <form th:if="${!newIdeaSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="newIdea" />

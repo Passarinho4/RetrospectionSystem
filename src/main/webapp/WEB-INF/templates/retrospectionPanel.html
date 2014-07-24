@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Retrospection System</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
 
     <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -19,7 +20,37 @@
         <h1>You added new retrospection!</h1>
         <h2>Your question: <span th:text="${question}"></span></h2>
         <h2>Members number: <span th:text="${membersNumber}"></span></h2>
-        <a th:if="${status}" th:href="'closeRetrospection?id=' + ${id}"><button class="btn btn-warning">Close this retrospection!</button></a>
+        <a th:href="'showRetrospection?id=' + ${id}"><button class="btn btn-primary">Show this retrospection!</button></a>
+        <div class="btn-group">
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    Show statistics! <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <form class="form-horizontal" method="get" action="showStatistics">
+                        <input type="hidden" name="id" value="" th:attr="value= ${id}"/>
+                        <input type="hidden" name="type" value="mad"/>
+                        <input type="submit" class="btn btn-sm btn-primary" value="MAD"/>
+                    </form>
+                </li>
+                <li>
+                    <form class="form-horizontal" method="get" action="showStatistics">
+                        <input type="hidden" name="id" value="" th:attr="value= ${id}"/>
+                        <input type="hidden" name="type" value="glad"/>
+                        <input type="submit" class="btn btn-sm btn-primary" value="GLAD"/>
+                    </form>
+                </li>
+                <li>
+                    <form class="form-horizontal" method="get" action="showStatistics">
+                        <input type="hidden" name="id" value="" th:attr="value= ${id}"/>
+                        <input type="hidden" name="type" value="newIdea"/>
+                        <input type="submit" class="btn btn-sm btn-primary" value="NEW IDEA"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <a th:if="${status}" th:href="'stopAddingStickers?id=' + ${id}"><button class="btn btn-warning">Close this retrospection!</button></a>
+        <a th:if="!${status}" th:href="'startAddingStickers?id=' + ${id}"><button class="btn btn-warning">Restart this retrospection!</button></a>
         <a th:href="'removeRetrospection?id=' + ${id}"><button class="btn btn-danger">Remove this retrospection!</button></a>
         <h2>Members tokens list:</h2>
         <table class="table table-stripped table-bordered">

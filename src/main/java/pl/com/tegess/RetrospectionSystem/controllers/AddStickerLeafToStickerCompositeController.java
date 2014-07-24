@@ -30,9 +30,11 @@ public class AddStickerLeafToStickerCompositeController {
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         StickerComposite stickerComposite = (StickerComposite)retrospection.getStickerByContent(compositeType, compositeContent);
         Sticker stickerLeaf = retrospection.getStickerByContent(leafType, leafContent);
+        stickerComposite.setVotes(stickerComposite.getVotes()+stickerLeaf.getVotes());
         stickerComposite.addChild(stickerLeaf);
         retrospection.removeSticker(stickerLeaf, leafType);
         repository.modifyRetrospection(retrospection);
-        return "redirect:rretrospection?token="+token;
+        if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
+        return "redirect:retrospection?token="+token;
     }
 }

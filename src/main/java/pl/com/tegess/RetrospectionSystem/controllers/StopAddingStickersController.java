@@ -12,16 +12,24 @@ import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
  * Created by Szymek.
  */
 @Controller
-public class closeRetrospectionController {
+public class StopAddingStickersController {
 
     @Autowired
     ConfigurableApplicationContext applicationContext;
 
-    @RequestMapping("closeRetrospection")
-    public String closeRetrospection(@RequestParam(value = "id") String id){
+    @RequestMapping("stopAddingStickers")
+    public String stopAddingStickers(@RequestParam(value = "id") String id){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionById(id);
         retrospection.setStatus(false);
+        repository.modifyRetrospection(retrospection);
+        return "redirect:retrospectionPanel?id=" + id;
+    }
+    @RequestMapping("startAddingStickers")
+    public String startAddingStickers(@RequestParam(value = "id") String id){
+        RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        Retrospection retrospection = repository.getRetrospectionById(id);
+        retrospection.setStatus(true);
         repository.modifyRetrospection(retrospection);
         return "redirect:retrospectionPanel?id=" + id;
     }

@@ -29,9 +29,11 @@ public class MakeStickerComposite {
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         Sticker sticker = retrospection.getStickerByContent(type, content);
         Sticker stickerComposite = new StickerComposite(sticker.getContent(), sticker.getAuthor());
+        stickerComposite.setVotes(sticker.getVotes());
         retrospection.removeSticker(sticker, type);
         retrospection.addSticker(stickerComposite, type);
         repository.modifyRetrospection(retrospection);
+        if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
         return "redirect:retrospection?token="+token;
     }
 }
