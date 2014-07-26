@@ -22,10 +22,10 @@ public class VoteController {
     @RequestMapping("voteForSticker")
     public String voteForSticker(@RequestParam(value = "token") String token,
                                  @RequestParam(value = "type") Type type,
-                                 @RequestParam(value = "content") String content){
+                                 @RequestParam(value = "stickerId") Integer stickerId){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
-        Sticker sticker = retrospection.getStickerByContent(type, content);
+        Sticker sticker = retrospection.getStickerById(type, stickerId);
         sticker.addVote(token);
         repository.modifyRetrospection(retrospection);
         if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
@@ -35,10 +35,10 @@ public class VoteController {
     @RequestMapping("RemoveVoteForSticker")
     public String RemoveVoteForSticker(@RequestParam(value = "token") String token,
                                        @RequestParam(value = "type") Type type,
-                                       @RequestParam(value = "content") String content){
+                                       @RequestParam(value = "stickerId") Integer stickerId){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
-        Sticker sticker = retrospection.getStickerByContent(type, content);
+        Sticker sticker = retrospection.getStickerById(type, stickerId);
         sticker.removeVote(token);
         repository.modifyRetrospection(retrospection);
         if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;

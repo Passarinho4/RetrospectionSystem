@@ -16,5 +16,6 @@ public interface Sticker {
     public boolean isComposite();
     public String getShortContent();
     public boolean canVote(String token);
+    public Integer getId();
 
 }

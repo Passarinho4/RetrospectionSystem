@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.*;
+import pl.com.tegess.RetrospectionSystem.repository.CounterRepository;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
 /**
@@ -27,13 +28,14 @@ public class StickerController {
                              @RequestParam(value = "type") Type type,
                              Model model){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        CounterRepository counterRepository = applicationContext.getBean(CounterRepository.class);
         Retrospection retrospection;
         if(token!=null) {
             retrospection = repository.getRetrospectionByToken(token);
         }else{
             retrospection = repository.getRetrospectionById(id);
         }
-        Sticker sticker = new StickerLeaf(content, author);
+        Sticker sticker = new StickerLeaf(counterRepository.getNextSequence("Sticker"), content, author);
         retrospection.addSticker(sticker, type);
         repository.modifyRetrospection(retrospection);
         if(token!=null) {
@@ -46,7 +48,7 @@ public class StickerController {
     public String removeSticker(@RequestParam(value = "token", required = false) String token,
                                 @RequestParam(value = "id", required = false) String id,
                                 @RequestParam(value = "type") Type type,
-                                @RequestParam(value = "content") String content){
+                                @RequestParam(value = "stickerId") Integer stickerId){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection;
         if(token!=null){
@@ -54,7 +56,7 @@ public class StickerController {
         }else {
             retrospection = repository.getRetrospectionById(id);
         }
-        retrospection.removeSticker(retrospection.getStickerByContent(type, content), type);
+        retrospection.removeSticker(retrospection.getStickerById(type, stickerId), type);
         repository.modifyRetrospection(retrospection);
         if(token!=null) {
             return "redirect:retrospection?token=" + token;
@@ -66,16 +68,18 @@ public class StickerController {
     public String makeStickerComposite(@RequestParam(value = "token", required = false) String token,
                                        @RequestParam(value = "id", required = false) String id,
                                        @RequestParam(value = "type") Type type,
-                                       @RequestParam(value = "content") String content){
+                                       @RequestParam(value = "stickerId") Integer stickerId){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        CounterRepository counterRepository = applicationContext.getBean(CounterRepository.class);
         Retrospection retrospection;
         if(token!=null) {
             retrospection = repository.getRetrospectionByToken(token);
         }else{
             retrospection = repository.getRetrospectionById(id);
         }
-        Sticker sticker = retrospection.getStickerByContent(type, content);
-        Sticker stickerComposite = new StickerComposite(sticker.getContent(), sticker.getAuthor());
+        Sticker sticker = retrospection.getStickerById(type, stickerId);
+        Sticker stickerComposite = new StickerComposite(counterRepository.getNextSequence("Sticker"),
+                sticker.getContent(), sticker.getAuthor());
         stickerComposite.setVotes(sticker.getVotes());
         retrospection.removeSticker(sticker, type);
         retrospection.addSticker(stickerComposite, type);
@@ -89,9 +93,9 @@ public class StickerController {
     @RequestMapping("addStickerLeafToStickerComposite")
     public String addStickerLeafToStickerComposite(@RequestParam(value = "token", required = false) String token,
                                                    @RequestParam(value = "id", required = false) String id,
-                                                   @RequestParam(value = "compositeContent") String compositeContent,
+                                                   @RequestParam(value = "compositeId") Integer compositeId,
                                                    @RequestParam(value = "compositeType") Type compositeType,
-                                                   @RequestParam(value = "leafContent") String leafContent,
+                                                   @RequestParam(value = "leafId") Integer leafId,
                                                    @RequestParam(value = "leafType") Type leafType){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection;
@@ -100,8 +104,8 @@ public class StickerController {
         }else{
             retrospection = repository.getRetrospectionById(id);
         }
-        StickerComposite stickerComposite = (StickerComposite)retrospection.getStickerByContent(compositeType, compositeContent);
-        Sticker stickerLeaf = retrospection.getStickerByContent(leafType, leafContent);
+        StickerComposite stickerComposite = (StickerComposite)retrospection.getStickerById(compositeType, compositeId);
+        Sticker stickerLeaf = retrospection.getStickerById(leafType, leafId);
         stickerComposite.setVotes(stickerComposite.getVotes()+stickerLeaf.getVotes());
         stickerComposite.addChild(stickerLeaf);
         retrospection.removeSticker(stickerLeaf, leafType);
@@ -112,8 +116,8 @@ public class StickerController {
     }
 
     @RequestMapping("removeStickerLeaf")
-    public String removeStickerLeaf(@RequestParam(value = "compositeStickerContent") String compositeStickerContent,
-                                    @RequestParam(value = "leafStickerContent") String leafStickerContent,
+    public String removeStickerLeaf(@RequestParam(value = "compositeStickerId") Integer compositeStickerId,
+                                    @RequestParam(value = "leafStickerId") Integer leafStickerId,
                                     @RequestParam(value = "type") Type type,
                                     @RequestParam(value = "token", required = false) String token,
                                     @RequestParam(value = "id", required = false) String id){
@@ -124,8 +128,8 @@ public class StickerController {
         }else{
             retrospection = repository.getRetrospectionById(id);
         }
-        StickerComposite stickerComposite = (StickerComposite)retrospection.getStickerByContent(type, compositeStickerContent);
-        stickerComposite.removeChild(stickerComposite.getChild(leafStickerContent));
+        StickerComposite stickerComposite = (StickerComposite)retrospection.getStickerById(type, compositeStickerId);
+        stickerComposite.removeChild(stickerComposite.getChild(leafStickerId));
         repository.modifyRetrospection(retrospection);
         if(token!=null) {
             return "redirect:retrospection?token=" + token;

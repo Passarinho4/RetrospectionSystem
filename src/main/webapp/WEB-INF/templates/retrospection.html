@@ -40,8 +40,8 @@
                             <h5>
                                 <div class="label label-default" style="display: block; width:230px; background-color: #EEE; color:#333; white-space: normal;">
                                     <form class="form-horizontal" method="post" action="removeStickerLeaf" style="float:right">
-                                        <input type="hidden" name="compositeStickerContent" value="" th:attr="value=${madSticker.content}" />
-                                        <input type="hidden" name="leafStickerContent" value="" th:attr="value=${child.content}" />
+                                        <input type="hidden" name="compositeStickerId" value="" th:attr="value=${madSticker.id}" />
+                                        <input type="hidden" name="leafStickerId" value="" th:attr="value=${child.id}" />
                                         <input type="hidden" name="type" value="MAD"/>
                                         <input type="hidden" name="token" value="" th:attr="value=${token}" />
                                         <button type="submit" class="btn btn-xs btn-default" value="Remove">
@@ -61,9 +61,9 @@
                             <li th:each="compositeSticker : ${madCompositeStickersList}">
                                 <form th:if="${compositeSticker.content} != ${madSticker.content}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
                                     <input type="hidden" name="token" value="" th:attr="value=${token}" />
-                                    <input type="hidden" name="compositeContent" value="" th:attr="value=${compositeSticker.content}" />
+                                    <input type="hidden" name="compositeId" value="" th:attr="value=${compositeSticker.id}" />
                                     <input type="hidden" name="compositeType" value="MAD" />
-                                    <input type="hidden" name="leafContent" value="" th:attr="value=${madSticker.content}" />
+                                    <input type="hidden" name="leafId" value="" th:attr="value=${madSticker.id}" />
                                     <input type="hidden" name="leafType" value="MAD" />
                                     <input type="submit" value="" th:attr="value=${compositeSticker.shortContent}" />
                                 </form>
@@ -73,13 +73,13 @@
                     <form method="get" action="removeSticker" class="form-horizontal" style="float:left; margin-left:5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="MAD" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${madSticker.id}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
                     </form>
                     <form th:if="${!madSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="MAD" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${madSticker.id}" />
                         <button class="btn btn-xs btn-info">Make Parent</button>
                     </form>
                 </td>
@@ -122,8 +122,8 @@
                             <h5>
                                 <div class="label label-default" style="display: block; width:230px; background-color: #EEE; color:#333; white-space: normal;">
                                     <form class="form-horizontal" method="post" action="removeStickerLeaf" style="float:right">
-                                        <input type="hidden" name="compositeStickerContent" value="" th:attr="value=${gladSticker.content}" />
-                                        <input type="hidden" name="leafStickerContent" value="" th:attr="value=${child.content}" />
+                                        <input type="hidden" name="compositeStickerId" value="" th:attr="value=${gladSticker.id}" />
+                                        <input type="hidden" name="leafStickerId" value="" th:attr="value=${child.id}" />
                                         <input type="hidden" name="type" value="GLAD"/>
                                         <input type="hidden" name="token" value="" th:attr="value=${token}" />
                                         <button type="submit" class="btn btn-xs btn-default" value="Remove">
@@ -143,9 +143,9 @@
                             <li th:each="compositeSticker : ${gladCompositeStickersList}">
                                 <form th:if="${compositeSticker.content} != ${gladSticker.content}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
                                     <input type="hidden" name="token" value="" th:attr="value=${token}" />
-                                    <input type="hidden" name="compositeContent" value="" th:attr="value=${compositeSticker.content}" />
+                                    <input type="hidden" name="compositeId" value="" th:attr="value=${compositeSticker.id}" />
                                     <input type="hidden" name="compositeType" value="GLAD" />
-                                    <input type="hidden" name="leafContent" value="" th:attr="value=${gladSticker.content}" />
+                                    <input type="hidden" name="leafId" value="" th:attr="value=${gladSticker.id}" />
                                     <input type="hidden" name="leafType" value="GLAD" />
                                     <input type="submit" value="" th:attr="value=${compositeSticker.shortContent}" />
                                 </form>
@@ -155,13 +155,13 @@
                     <form method="get" action="removeSticker" class="form-horizontal" style="float:left; margin-left:5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="GLAD" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${gladSticker.id}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
                     </form>
                     <form th:if="${!gladSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="GLAD" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${gladSticker.id}" />
                         <button class="btn btn-xs btn-info">Make Parent</button>
                     </form>
                 </td>
@@ -204,8 +204,8 @@
                             <h5>
                                 <div class="label label-default" style="display: block; width:230px; background-color: #EEE; color:#333; white-space: normal;">
                                     <form class="form-horizontal" method="post" action="removeStickerLeaf" style="float:right">
-                                        <input type="hidden" name="compositeStickerContent" value="" th:attr="value=${newIdeaSticker.content}" />
-                                        <input type="hidden" name="leafStickerContent" value="" th:attr="value=${child.content}" />
+                                        <input type="hidden" name="compositeStickerId" value="" th:attr="value=${newIdeaSticker.id}" />
+                                        <input type="hidden" name="leafStickerId" value="" th:attr="value=${child.id}" />
                                         <input type="hidden" name="type" value="NEWIDEA"/>
                                         <input type="hidden" name="token" value="" th:attr="value=${token}" />
                                         <button type="submit" class="btn btn-xs btn-default" value="Remove">
@@ -225,9 +225,9 @@
                             <li th:each="compositeSticker : ${newIdeaCompositeStickersList}">
                                 <form th:if="${compositeSticker.content} != ${newIdeaSticker.content}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
                                     <input type="hidden" name="token" value="" th:attr="value=${token}" />
-                                    <input type="hidden" name="compositeContent" value="" th:attr="value=${compositeSticker.content}" />
+                                    <input type="hidden" name="compositeId" value="" th:attr="value=${compositeSticker.id}" />
                                     <input type="hidden" name="compositeType" value="NEWIDEA" />
-                                    <input type="hidden" name="leafContent" value="" th:attr="value=${newIdeaSticker.content}" />
+                                    <input type="hidden" name="leafId" value="" th:attr="value=${newIdeaSticker.id}" />
                                     <input type="hidden" name="leafType" value="NEWIDEA" />
                                     <input type="submit" value="" th:attr="value=${compositeSticker.shortContent}" />
                                 </form>
@@ -237,13 +237,13 @@
                     <form method="get" action="removeSticker" class="form-horizontal" style="float:left; margin-left:5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="NEWIDEA" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${newIdeaSticker.id}" />
                         <button class="btn btn-xs btn-danger">Remove</button>
                     </form>
                     <form th:if="${!newIdeaSticker.composite}" method="get" action="makeStickerComposite" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="NEWIDEA" />
-                        <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${newIdeaSticker.id}" />
                         <button class="btn btn-xs btn-info">Make Parent</button>
                     </form>
                 </td>

@@ -35,7 +35,7 @@ public class Retrospection {
         this.membersTokens = membersTokens;
     }
 
-    public Sticker getStickerByContent(Type type, String content){
+    public Sticker getStickerById(Type type, Integer id){
         Iterator iterator;
         switch (type){
             case MAD: iterator = this.madStickersList.iterator();
@@ -50,7 +50,7 @@ public class Retrospection {
         Sticker sticker;
         while (iterator.hasNext()){
             sticker = (Sticker)iterator.next();
-            if(sticker.getContent().equals(content)) return sticker;
+            if(sticker.getId().equals(id)) return sticker;
         }
         return null;
     }

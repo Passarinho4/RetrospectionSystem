@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StickerComposite implements Sticker, Iterable {
 
-
+    private final int id;
     private final String content;
     private final String author;
     private Integer votes;
@@ -21,7 +21,8 @@ public class StickerComposite implements Sticker, Iterable {
 
     private List<Sticker> stickerList = new ArrayList<Sticker>();
 
-    public StickerComposite(String content, String author) {
+    public StickerComposite(int id, String content, String author) {
+        this.id = id;
         this.content = content;
         this.author = author;
         this.votes = 0;
@@ -35,12 +36,12 @@ public class StickerComposite implements Sticker, Iterable {
         stickerList.remove(child);
     }
 
-    public Sticker getChild(String content) {
+    public Sticker getChild(Integer id) {
         Sticker sticker;
         Iterator iterator = iterator();
         while(iterator().hasNext()){
             sticker = (Sticker)iterator.next();
-            if(sticker.getContent().equals(content)) return sticker;
+            if(sticker.getId().equals(id)) return sticker;
         }
         return null;
     }
@@ -90,6 +91,11 @@ public class StickerComposite implements Sticker, Iterable {
     @Override
     public boolean canVote(String token) {
         return !this.voted.contains(token);
+    }
+
+    @Override
+    public Integer getId() {
+        return this.id;
     }
 
     @Override

@@ -12,13 +12,14 @@ import java.util.List;
 
 public class StickerLeaf implements Sticker {
 
-
+    private final int id;
     private final String content;
     private final String author;
     private Integer votes;
     private List<String> voted = new ArrayList<String>();
 
-    public StickerLeaf(String content, String author) {
+    public StickerLeaf(int id, String content, String author) {
+        this.id = id;
         this.content = content;
         this.author = author;
         this.votes = 0;
@@ -70,6 +71,11 @@ public class StickerLeaf implements Sticker {
     @Override
     public boolean canVote(String token) {
         return !this.voted.contains(token);
+    }
+
+    @Override
+    public Integer getId() {
+        return this.id;
     }
 
 
