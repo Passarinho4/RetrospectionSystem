@@ -59,7 +59,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li th:each="compositeSticker : ${madCompositeStickersList}">
-                                <form th:if="${compositeSticker.content} != ${madSticker.content}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
+                                <form th:if="${compositeSticker.id} != ${madSticker.id}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
                                     <input type="hidden" name="token" value="" th:attr="value=${token}" />
                                     <input type="hidden" name="compositeId" value="" th:attr="value=${compositeSticker.id}" />
                                     <input type="hidden" name="compositeType" value="MAD" />
@@ -141,7 +141,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li th:each="compositeSticker : ${gladCompositeStickersList}">
-                                <form th:if="${compositeSticker.content} != ${gladSticker.content}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
+                                <form th:if="${compositeSticker.id} != ${gladSticker.id}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
                                     <input type="hidden" name="token" value="" th:attr="value=${token}" />
                                     <input type="hidden" name="compositeId" value="" th:attr="value=${compositeSticker.id}" />
                                     <input type="hidden" name="compositeType" value="GLAD" />
@@ -223,7 +223,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li th:each="compositeSticker : ${newIdeaCompositeStickersList}">
-                                <form th:if="${compositeSticker.content} != ${newIdeaSticker.content}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
+                                <form th:if="${compositeSticker.id} != ${newIdeaSticker.id}" class="form-horizontal" method="post" action="addStickerLeafToStickerComposite">
                                     <input type="hidden" name="token" value="" th:attr="value=${token}" />
                                     <input type="hidden" name="compositeId" value="" th:attr="value=${compositeSticker.id}" />
                                     <input type="hidden" name="compositeType" value="NEWIDEA" />
