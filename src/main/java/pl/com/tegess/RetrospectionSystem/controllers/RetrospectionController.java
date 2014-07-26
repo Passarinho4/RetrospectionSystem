@@ -35,20 +35,20 @@ public class RetrospectionController {
         model.addAttribute("token", token);
         model.addAttribute("author", token);
         if(retrospection.getStatus()) {
-            model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList("mad", token));
-            model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList("glad", token));
-            model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList("newIdea", token));
-            model.addAttribute("madStickerList",retrospection.getStickersList("mad", token));
-            model.addAttribute("gladStickerList",retrospection.getStickersList("glad", token));
-            model.addAttribute("newIdeaStickerList",retrospection.getStickersList("newIdea", token));
+            model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList(Type.MAD, token));
+            model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList(Type.GLAD, token));
+            model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList(Type.NEWIDEA, token));
+            model.addAttribute("madStickerList",retrospection.getStickersList(Type.MAD, token));
+            model.addAttribute("gladStickerList",retrospection.getStickersList(Type.GLAD, token));
+            model.addAttribute("newIdeaStickerList",retrospection.getStickersList(Type.NEWIDEA, token));
             return "retrospection";
         }else{
-            model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList("mad", null));
-            model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList("glad", null));
-            model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList("newIdea", null));
-            model.addAttribute("madStickerList",retrospection.getStickersList("mad", null));
-            model.addAttribute("gladStickerList",retrospection.getStickersList("glad", null));
-            model.addAttribute("newIdeaStickerList",retrospection.getStickersList("newIdea", null));
+            model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList(Type.MAD, null));
+            model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList(Type.GLAD, null));
+            model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList(Type.NEWIDEA, null));
+            model.addAttribute("madStickerList",retrospection.getStickersList(Type.MAD, null));
+            model.addAttribute("gladStickerList",retrospection.getStickersList(Type.GLAD, null));
+            model.addAttribute("newIdeaStickerList",retrospection.getStickersList(Type.NEWIDEA, null));
             return "voteRetrospection";
         }
     }
@@ -59,14 +59,14 @@ public class RetrospectionController {
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionById(id);
         if(retrospection==null) return "404";
-        model.addAttribute("token", id);
+        model.addAttribute("id", id);
         model.addAttribute("author", id);
-        model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList("mad", null));
-        model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList("glad", null));
-        model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList("newIdea", null));
-        model.addAttribute("madStickerList",retrospection.getStickersList("mad", null));
-        model.addAttribute("gladStickerList",retrospection.getStickersList("glad", null));
-        model.addAttribute("newIdeaStickerList",retrospection.getStickersList("newIdea", null));
+        model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList(Type.MAD, null));
+        model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList(Type.GLAD, null));
+        model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList(Type.NEWIDEA, null));
+        model.addAttribute("madStickerList",retrospection.getStickersList(Type.MAD, null));
+        model.addAttribute("gladStickerList",retrospection.getStickersList(Type.GLAD, null));
+        model.addAttribute("newIdeaStickerList",retrospection.getStickersList(Type.NEWIDEA, null));
         return "showRetrospection";
     }
 
@@ -79,7 +79,6 @@ public class RetrospectionController {
         Generator generator = new DefaultGenerator(repository);
         String id = generator.getId();
         List<String> tokens = generator.getTokens(membersNumber);
-        tokens.add(id);
         Retrospection retrospection = new Retrospection(id, author, question, tokens);
         repository.insertRetrospection(retrospection);
         return "redirect:retrospectionPanel?id="+ retrospection.getRetrospectionId();

@@ -20,5 +20,4 @@ public interface RetrospectionRepository {
     public boolean containsRetrospectionById(String id);
     public boolean containsRetrospectionByToken(String token);
     public void modifyRetrospection(Retrospection retrospection);
-
 }

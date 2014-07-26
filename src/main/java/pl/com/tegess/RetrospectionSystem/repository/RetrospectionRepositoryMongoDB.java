@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
+import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.StickerComposite;
 
 import java.util.List;
 
@@ -71,4 +73,5 @@ public class RetrospectionRepositoryMongoDB implements RetrospectionRepository {
     public void modifyRetrospection(Retrospection retrospection) {
         mongoTemplate.save(retrospection);
     }
+
 }

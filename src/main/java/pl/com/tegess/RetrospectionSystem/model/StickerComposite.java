@@ -1,5 +1,8 @@
 package pl.com.tegess.RetrospectionSystem.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -7,7 +10,9 @@ import java.util.List;
 /**
  * Created by Szymek.
  */
+
 public class StickerComposite implements Sticker, Iterable {
+
 
     private final String content;
     private final String author;

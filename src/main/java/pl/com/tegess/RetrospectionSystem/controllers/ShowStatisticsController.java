@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.Type;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
 import java.util.Comparator;
@@ -25,11 +26,11 @@ public class ShowStatisticsController {
 
     @RequestMapping("showStatistics")
     public String showStatistics(@RequestParam(value = "id") String id,
-                                 @RequestParam(value = "type") String type,
+                                 @RequestParam(value = "type") Type type,
                                  Model model){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionById(id);
-        model.addAttribute("type", type.replaceFirst("I", " I").toUpperCase());
+        model.addAttribute("type", type.toString().replaceFirst("I", " I").toUpperCase());
         List<Sticker> list = retrospection.getStickersList(type, null);
         Integer membersNumber = retrospection.getMembersNumber();
         list.sort(Comparator.comparingInt(value -> membersNumber-value.getVotes()));

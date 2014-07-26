@@ -1,12 +1,17 @@
 package pl.com.tegess.RetrospectionSystem.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Szymek.
  */
+
 public class StickerLeaf implements Sticker {
+
 
     private final String content;
     private final String author;
@@ -17,6 +22,7 @@ public class StickerLeaf implements Sticker {
         this.content = content;
         this.author = author;
         this.votes = 0;
+
     }
 
     @Override
@@ -65,5 +71,6 @@ public class StickerLeaf implements Sticker {
     public boolean canVote(String token) {
         return !this.voted.contains(token);
     }
+
 
 }

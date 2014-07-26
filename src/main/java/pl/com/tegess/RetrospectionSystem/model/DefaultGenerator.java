@@ -42,4 +42,5 @@ public class DefaultGenerator implements Generator {
         }
         return tokens;
     }
+
 }

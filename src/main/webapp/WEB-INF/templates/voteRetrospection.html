@@ -49,13 +49,13 @@
                     </h6>
                     <form th:if="${madSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="type" value="MAD" />
                         <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
                         <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
                     <form th:if="!${madSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                        <input type="hidden" name="type" value="mad" />
+                        <input type="hidden" name="type" value="MAD" />
                         <input type="hidden" name="content" value="" th:attr="value= ${madSticker.content}" />
                         <button class="btn btn-xs btn-warning">Remove vote</button>
                     </form>
@@ -94,13 +94,13 @@
                     </h6>
                     <form th:if="${gladSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                        <input type="hidden" name="type" value="glad" />
+                        <input type="hidden" name="type" value="GLAD" />
                         <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
                         <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
                     <form th:if="!${gladSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                        <input type="hidden" name="type" value="glad" />
+                        <input type="hidden" name="type" value="GLAD" />
                         <input type="hidden" name="content" value="" th:attr="value= ${gladSticker.content}" />
                         <button class="btn btn-xs btn-warning">Remove vote</button>
                     </form>
@@ -139,13 +139,13 @@
                     </h6>
                     <form th:if="${newIdeaSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                        <input type="hidden" name="type" value="newIdea" />
+                        <input type="hidden" name="type" value="NEWIDEA" />
                         <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
                         <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
                         <form th:if="!${newIdeaSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
                             <input type="hidden" name="token" value="" th:attr="value = ${token}" />
-                            <input type="hidden" name="type" value="newIdea" />
+                            <input type="hidden" name="type" value="NEWIDEA" />
                             <input type="hidden" name="content" value="" th:attr="value= ${newIdeaSticker.content}" />
                             <button class="btn btn-xs btn-warning">Remove vote</button>
                     </form>

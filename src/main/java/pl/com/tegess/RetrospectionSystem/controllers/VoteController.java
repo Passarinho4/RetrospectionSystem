@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.Type;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
 
 /**
@@ -20,7 +21,7 @@ public class VoteController {
 
     @RequestMapping("voteForSticker")
     public String voteForSticker(@RequestParam(value = "token") String token,
-                                 @RequestParam(value = "type") String type,
+                                 @RequestParam(value = "type") Type type,
                                  @RequestParam(value = "content") String content){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
@@ -33,7 +34,7 @@ public class VoteController {
 
     @RequestMapping("RemoveVoteForSticker")
     public String RemoveVoteForSticker(@RequestParam(value = "token") String token,
-                                       @RequestParam(value = "type") String type,
+                                       @RequestParam(value = "type") Type type,
                                        @RequestParam(value = "content") String content){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
