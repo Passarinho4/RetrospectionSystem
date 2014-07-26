@@ -65,7 +65,7 @@ public class StickerLeaf implements Sticker {
 
     @Override
     public String getShortContent() {
-        return this.content.substring(0, Math.min(20, this.content.length())) + "..."; //first 10 chars of content;
+        return this.content.substring(0, Math.min(20, this.content.length())) + "..."; //first 20 chars of content;
     }
 
     @Override
