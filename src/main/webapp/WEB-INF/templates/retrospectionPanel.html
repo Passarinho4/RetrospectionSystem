@@ -49,8 +49,37 @@
                 </li>
             </ul>
         </div>
-        <a th:if="${status}" th:href="'stopAddingStickers?id=' + ${id}"><button class="btn btn-warning">Close this retrospection!</button></a>
-        <a th:if="!${status}" th:href="'startAddingStickers?id=' + ${id}"><button class="btn btn-warning">Restart this retrospection!</button></a>
+        <div class="btn-group">
+            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                <span th:if="${status}">Start voting time! </span>
+                <span th:if="!${status}">Change voting strategy!</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <form class="form-horizontal" method="get" action="stopAddingStickers">
+                        <input type="hidden" name="id" value="" th:attr="value= ${id}"/>
+                        <input type="hidden" name="voteStrategyClassName" value="OneForOneVoteStrategy"/>
+                        <input type="submit" class="btn btn-sm btn-primary" value="One for one"/>
+                    </form>
+                </li>
+                <li>
+                    <form class="form-horizontal" method="get" action="stopAddingStickers">
+                        <input type="hidden" name="id" value="" th:attr="value= ${id}"/>
+                        <input type="hidden" name="voteStrategyClassName" value="FreeVoteStrategy"/>
+                        <input type="submit" class="btn btn-sm btn-primary" value="Free voting"/>
+                    </form>
+                </li>
+                <li>
+                    <form class="form-horizontal" method="get" action="stopAddingStickers">
+                        <input type="hidden" name="id" value="" th:attr="value= ${id}"/>
+                        <input type="hidden" name="voteStrategyClassName" value="LimitedVotesPerMemberVoteStrategy"/>
+                        <input type="submit" class="btn btn-sm btn-primary" value="Limited votes per member [10]"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <a th:if="!${status}" th:href="'startAddingStickers?id=' + ${id}"><button class="btn btn-warning">Restart adding stickers!</button></a>
         <a th:href="'removeRetrospection?id=' + ${id}"><button class="btn btn-danger">Remove this retrospection!</button></a>
         <h2>Members tokens list:</h2>
         <table class="table table-stripped table-bordered">

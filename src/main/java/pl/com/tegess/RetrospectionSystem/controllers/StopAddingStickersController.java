@@ -18,9 +18,11 @@ public class StopAddingStickersController {
     ConfigurableApplicationContext applicationContext;
 
     @RequestMapping("stopAddingStickers")
-    public String stopAddingStickers(@RequestParam(value = "id") String id){
+    public String stopAddingStickers(@RequestParam(value = "id") String id,
+                                     @RequestParam(value = "voteStrategyClassName")String voteStrategyClassName){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
         Retrospection retrospection = repository.getRetrospectionById(id);
+        retrospection.setVoteStrategyClassName(voteStrategyClassName);
         retrospection.setStatus(false);
         repository.modifyRetrospection(retrospection);
         return "redirect:retrospectionPanel?id=" + id;

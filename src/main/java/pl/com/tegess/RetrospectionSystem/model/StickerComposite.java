@@ -14,7 +14,7 @@ import java.util.List;
 public class StickerComposite implements Sticker, Iterable {
 
     private final int id;
-    private final String content;
+    private String content;
     private final String author;
     private Integer votes;
     private List<String> voted = new ArrayList<String>();
@@ -89,8 +89,8 @@ public class StickerComposite implements Sticker, Iterable {
     }
 
     @Override
-    public boolean canVote(String token) {
-        return !this.voted.contains(token);
+    public boolean containsVoteFrom(String token) {
+        return this.voted.contains(token);
     }
 
     @Override
@@ -105,4 +105,8 @@ public class StickerComposite implements Sticker, Iterable {
 
     public List<Sticker> getChildren() { return stickerList;}
 
+    @Override
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

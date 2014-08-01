@@ -13,7 +13,7 @@ import java.util.List;
 public class StickerLeaf implements Sticker {
 
     private final int id;
-    private final String content;
+    private String content;
     private final String author;
     private Integer votes;
     private List<String> voted = new ArrayList<String>();
@@ -69,8 +69,8 @@ public class StickerLeaf implements Sticker {
     }
 
     @Override
-    public boolean canVote(String token) {
-        return !this.voted.contains(token);
+    public boolean containsVoteFrom(String token) {
+        return this.voted.contains(token);
     }
 
     @Override
@@ -78,5 +78,8 @@ public class StickerLeaf implements Sticker {
         return this.id;
     }
 
-
+    @Override
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

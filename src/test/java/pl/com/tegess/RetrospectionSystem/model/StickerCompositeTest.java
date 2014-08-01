@@ -7,8 +7,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class StickerCompositeTest {
 
     @Test
@@ -24,6 +22,12 @@ public class StickerCompositeTest {
         Assert.assertEquals(content, underTest.getContent());
         Assert.assertEquals(shortContent, underTest.getShortContent());
         Assert.assertEquals("author", underTest.getAuthor());
+
+        //set content
+        underTest.setContent("new content");
+
+        //then
+        Assert.assertEquals("new content", underTest.getContent());
 
     }
 
@@ -64,16 +68,16 @@ public class StickerCompositeTest {
         //when
         underTest.addVote("token");
 
-        //then test addVote and canVote
-        Assert.assertEquals(false, underTest.canVote("token"));
-        Assert.assertEquals(true, underTest.canVote("someOtherToken"));
+        //then test addVote and containsVoteFrom
+        Assert.assertEquals(true, underTest.containsVoteFrom("token"));
+        Assert.assertEquals(false, underTest.containsVoteFrom("someOtherToken"));
         Assert.assertEquals(new Integer(1), underTest.getVotes());
 
         //when
         underTest.removeVote("token");
 
         //then test removeVote
-        Assert.assertEquals(true, underTest.canVote("token"));
+        Assert.assertEquals(false, underTest.containsVoteFrom("token"));
         Assert.assertEquals(new Integer(0), underTest.getVotes());
     }
 

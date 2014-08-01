@@ -3,8 +3,6 @@ package pl.com.tegess.RetrospectionSystem.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class StickerLeafTest {
 
     @Test
@@ -20,6 +18,12 @@ public class StickerLeafTest {
         Assert.assertEquals(content, underTest.getContent());
         Assert.assertEquals("author", underTest.getAuthor());
         Assert.assertEquals(shortContent, underTest.getShortContent());
+
+        //set content
+        underTest.setContent("new content");
+
+        //then
+        Assert.assertEquals("new content", underTest.getContent());
 
     }
 
@@ -57,16 +61,16 @@ public class StickerLeafTest {
         //when
         underTest.addVote("token");
 
-        //then test addVote and canVote
-        Assert.assertEquals(false, underTest.canVote("token"));
-        Assert.assertEquals(true, underTest.canVote("someOtherToken"));
+        //then test addVote and containsVoteFrom
+        Assert.assertEquals(true, underTest.containsVoteFrom("token"));
+        Assert.assertEquals(false, underTest.containsVoteFrom("someOtherToken"));
         Assert.assertEquals(new Integer(1), underTest.getVotes());
 
         //when
         underTest.removeVote("token");
 
         //then test removeVote
-        Assert.assertEquals(true, underTest.canVote("token"));
+        Assert.assertEquals(false, underTest.containsVoteFrom("token"));
         Assert.assertEquals(new Integer(0), underTest.getVotes());
     }
 

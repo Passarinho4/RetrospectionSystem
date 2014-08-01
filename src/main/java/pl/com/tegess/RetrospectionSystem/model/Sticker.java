@@ -8,6 +8,7 @@ import javax.xml.rpc.holders.IntegerWrapperHolder;
 public interface Sticker {
 
     public String getContent();
+    public void setContent(String content);
     public String getAuthor();
     public Integer getVotes();
     public void addVote(String token);
@@ -15,7 +16,7 @@ public interface Sticker {
     public void setVotes(Integer votes);
     public boolean isComposite();
     public String getShortContent();
-    public boolean canVote(String token);
+    public boolean containsVoteFrom(String token);
     public Integer getId();
 
 }

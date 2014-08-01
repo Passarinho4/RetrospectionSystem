@@ -109,7 +109,8 @@ public class StickerController {
         stickerComposite.setVotes(stickerComposite.getVotes()+stickerLeaf.getVotes());
         stickerComposite.addChild(stickerLeaf);
         retrospection.removeSticker(stickerLeaf, leafType);
-        repository.modifyRetrospection(retrospection);        if(token!=null) {
+        repository.modifyRetrospection(retrospection);
+        if(token!=null) {
             return "redirect:retrospection?token=" + token;
         }
         return "redirect:showRetrospection?id="+id;
@@ -136,4 +137,50 @@ public class StickerController {
         }
         return "redirect:showRetrospection?id="+id;
     }
+
+    @RequestMapping("editSticker")
+    public String editSticker(@RequestParam(value = "stickerId") Integer stickerId,
+                              @RequestParam(value = "type") Type type,
+                              @RequestParam(value = "newContent") String newContent,
+                              @RequestParam(value = "token", required = false) String token,
+                              @RequestParam(value = "id", required = false)String id){
+        RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        Retrospection retrospection;
+        if(token!=null) {
+            retrospection = repository.getRetrospectionByToken(token);
+        }else{
+            retrospection = repository.getRetrospectionById(id);
+        }
+        Sticker sticker = retrospection.getStickerById(type, stickerId);
+        sticker.setContent(newContent);
+        repository.modifyRetrospection(retrospection);
+        if(token!=null) {
+            return "redirect:retrospection?token=" + token;
+        }
+        return "redirect:showRetrospection?id="+id;
+    }
+
+    @RequestMapping("editStickerForm")
+    public String editStickerForm(@RequestParam(value = "stickerId") Integer stickerId,
+                                  @RequestParam(value = "type") Type type,
+                                  @RequestParam(value = "token", required = false) String token,
+                                  @RequestParam(value = "id", required = false) String id,
+                                  Model model){
+
+        RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        Retrospection retrospection;
+        if(token!=null) {
+            retrospection = repository.getRetrospectionByToken(token);
+            model.addAttribute("token", token);
+        }else{
+            retrospection = repository.getRetrospectionById(id);
+            model.addAttribute("id", id);
+        }
+        model.addAttribute("stickerId", stickerId);
+        Sticker sticker = retrospection.getStickerById(type, stickerId);
+        model.addAttribute("stickerContent", sticker.getContent());
+        model.addAttribute("type", type);
+        return "editStickerForm";
+    }
+
 }

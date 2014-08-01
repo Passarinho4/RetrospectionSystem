@@ -11,7 +11,9 @@ import org.springframework.web.servlet.View;
 import org.w3c.dom.html.HTMLDivElement;
 import pl.com.tegess.RetrospectionSystem.model.*;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.repository.UserRepository;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +32,7 @@ public class RetrospectionController {
     public String retrospection(@RequestParam(value = "token") String token,
                                       Model model){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         if(retrospection==null) return "404";
         model.addAttribute("token", token);
@@ -43,6 +46,9 @@ public class RetrospectionController {
             model.addAttribute("newIdeaStickerList",retrospection.getStickersList(Type.NEWIDEA, token));
             return "retrospection";
         }else{
+            VoteStrategy voteStrategy = createVoteStrategy(retrospection.getVoteStrategyClassName());
+            model.addAttribute("voteStrategy", voteStrategy);
+            model.addAttribute("user", userRepository.getUserByToken(token));
             model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList(Type.MAD, null));
             model.addAttribute("gladCompositeStickersList", retrospection.getCompositeStickersList(Type.GLAD, null));
             model.addAttribute("newIdeaCompositeStickersList", retrospection.getCompositeStickersList(Type.NEWIDEA, null));
@@ -51,6 +57,22 @@ public class RetrospectionController {
             model.addAttribute("newIdeaStickerList",retrospection.getStickersList(Type.NEWIDEA, null));
             return "voteRetrospection";
         }
+    }
+
+    private VoteStrategy createVoteStrategy(String voteStrategyClassName) {
+        Class c = null;
+        try {
+            c = Class.forName("pl.com.tegess.RetrospectionSystem.model."+ voteStrategyClassName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Object o = null;
+        try {
+            o = c.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return (VoteStrategy)o;
     }
 
     @RequestMapping("showRetrospection")
@@ -76,9 +98,15 @@ public class RetrospectionController {
                          @RequestParam(value = "membersNumber") Integer membersNumber,
                          Model model) {
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         Generator generator = new DefaultGenerator(repository);
         String id = generator.getId();
         List<String> tokens = generator.getTokens(membersNumber);
+        User user;
+        for(String t: tokens){
+            user = new Member(t);
+            userRepository.insertUser(user);
+        }
         Retrospection retrospection = new Retrospection(id, author, question, tokens);
         repository.insertRetrospection(retrospection);
         return "redirect:retrospectionPanel?id="+ retrospection.getRetrospectionId();
@@ -87,7 +115,10 @@ public class RetrospectionController {
     @RequestMapping("removeRetrospection")
     public String removeRetrospection(@RequestParam(value = "id") String id){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
-        repository.removeRetrospection(repository.getRetrospectionById(id));
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        Retrospection retrospection = repository.getRetrospectionById(id);
+        userRepository.removeAllUsers(retrospection.getMembersTokensList());
+        repository.removeRetrospection(retrospection);
         return "redirect:";
     }
 

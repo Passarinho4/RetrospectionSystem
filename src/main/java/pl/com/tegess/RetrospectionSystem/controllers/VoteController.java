@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.Type;
+import pl.com.tegess.RetrospectionSystem.model.User;
 import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.repository.UserRepository;
 
 /**
  * Created by Szymek.
@@ -24,10 +26,14 @@ public class VoteController {
                                  @RequestParam(value = "type") Type type,
                                  @RequestParam(value = "stickerId") Integer stickerId){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        User user = userRepository.getUserByToken(token);
+        user.addStickerToVoted(stickerId);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         Sticker sticker = retrospection.getStickerById(type, stickerId);
         sticker.addVote(token);
         repository.modifyRetrospection(retrospection);
+        userRepository.modifyUser(user);
         if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
         return "redirect:retrospection?token=" + token;
     }
@@ -37,10 +43,14 @@ public class VoteController {
                                        @RequestParam(value = "type") Type type,
                                        @RequestParam(value = "stickerId") Integer stickerId){
         RetrospectionRepository repository = applicationContext.getBean(RetrospectionRepository.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
+        User user = userRepository.getUserByToken(token);
+        user.removeStickerFromVoted(stickerId);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         Sticker sticker = retrospection.getStickerById(type, stickerId);
         sticker.removeVote(token);
         repository.modifyRetrospection(retrospection);
+        userRepository.modifyUser(user);
         if(token.equals(retrospection.getRetrospectionId())) return "redirect:showRetrospection?id="+token;
         return "redirect:retrospection?token=" + token;
     }

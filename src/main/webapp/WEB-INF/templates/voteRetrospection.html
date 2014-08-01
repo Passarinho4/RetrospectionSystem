@@ -47,13 +47,13 @@
                     <h6>Votes:
                         <span th:text="${madSticker.votes}"></span>
                     </h6>
-                    <form th:if="${madSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
+                    <form th:if="${voteStrategy.canVote(user, madSticker)}" method="get" action="voteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="MAD" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${madSticker.id}" />
                         <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
-                    <form th:if="!${madSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
+                    <form th:if="${madSticker.containsVoteFrom(user.token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="MAD" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${madSticker.id}" />
@@ -92,13 +92,13 @@
                     <h6>Votes:
                         <span th:text="${gladSticker.votes}"></span>
                     </h6>
-                    <form th:if="${gladSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
+                    <form th:if="${voteStrategy.canVote(user, gladSticker)}" method="get" action="voteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="GLAD" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${gladSticker.id}" />
                         <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
-                    <form th:if="!${gladSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
+                    <form th:if="${gladSticker.containsVoteFrom(user.token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="GLAD" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${gladSticker.id}" />
@@ -137,13 +137,13 @@
                     <h6>Votes:
                         <span th:text="${newIdeaSticker.votes}"></span>
                     </h6>
-                    <form th:if="${newIdeaSticker.canVote(token)}" method="get" action="voteForSticker" class="form-horizontal">
+                    <form th:if="${voteStrategy.canVote(user, newIdeaSticker)}" method="get" action="voteForSticker" class="form-horizontal">
                         <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                         <input type="hidden" name="type" value="NEWIDEA" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${newIdeaSticker.id}" />
                         <button class="btn btn-xs btn-warning">Vote</button>
                     </form>
-                        <form th:if="!${newIdeaSticker.canVote(token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
+                        <form th:if="${newIdeaSticker.containsVoteFrom(user.token)}" method="get" action="RemoveVoteForSticker" class="form-horizontal">
                             <input type="hidden" name="token" value="" th:attr="value = ${token}" />
                             <input type="hidden" name="type" value="NEWIDEA" />
                             <input type="hidden" name="stickerId" value="" th:attr="value= ${newIdeaSticker.id}" />

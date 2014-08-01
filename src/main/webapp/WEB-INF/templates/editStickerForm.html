@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://java.sun.com/jsf/html">
+<head>
+    <title>Retrospection System</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1>
+            <form class="form-horizontal" action="editSticker" method="get" style="width: 500px; margin: 0 auto; text-align: center">
+                <h2 class="form-heading">Please, fill in the form:</h2>
+                <div class="input-group"  style="width: 500px;">
+                    <span class="input-group-addon" style="width: 150px">Sticker content:</span>
+                    <textarea class="form-control" name="newContent" th:text="${stickerContent}"></textarea>
+                </div>
+                <input type="hidden" name="token" value="" th:attr="value=${token}"/>
+                <input type="hidden" name="id" value="" th:attr="value=${id}"/>
+                <input type="hidden" name="stickerId" value="" th:attr="value=${stickerId}"/>
+                <input type="hidden" name="type" value="" th:attr="value=${type}"/>
+                <input type="submit" class="form-control btn-primary" style="width:500px;" value="Save changes!"/>
+            </form>
+        </h1>
+    </div>
+</div>
+
+</body>
+</html>

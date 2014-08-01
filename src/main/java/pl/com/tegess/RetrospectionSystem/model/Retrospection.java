@@ -26,6 +26,7 @@ public class Retrospection {
     private List<Sticker> gladStickerList = new ArrayList<Sticker>();
     private List<Sticker> newIdeaStickerList = new ArrayList<Sticker>();
     private boolean status;
+    private String voteStrategyClassName;
 
     public Retrospection(String retrospectionId, String author, String question, List<String> membersTokens) {
         this.retrospectionId = retrospectionId;
@@ -33,6 +34,7 @@ public class Retrospection {
         this.question = question;
         this.status = true;
         this.membersTokens = membersTokens;
+        this.voteStrategyClassName = "pl.com.tegess.RetrospectionSystem.model.OneForOneVoteStrategy";
     }
 
     public Sticker getStickerById(Type type, Integer id){
@@ -151,5 +153,13 @@ public class Retrospection {
 
     public String getMembersTokensString(){
         return this.membersTokens.toString();
+    }
+
+    public String getVoteStrategyClassName() {
+        return voteStrategyClassName;
+    }
+
+    public void setVoteStrategyClassName(String voteStrategyClassName) {
+        this.voteStrategyClassName = voteStrategyClassName;
     }
 }

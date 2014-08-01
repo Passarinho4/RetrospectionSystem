@@ -82,6 +82,12 @@
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${madSticker.id}" />
                         <button class="btn btn-xs btn-info">Make Parent</button>
                     </form>
+                    <form th:if="${!madSticker.composite}" method="get" action="editStickerForm" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="MAD" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${madSticker.id}" />
+                        <button class="btn btn-xs btn-warning">Edit</button>
+                    </form>
                 </td>
             </tr>
             <tr>
