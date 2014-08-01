@@ -1,6 +1,5 @@
 package pl.com.tegess.RetrospectionSystem.model;
 
-import com.sun.deploy.panel.ITreeNode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
