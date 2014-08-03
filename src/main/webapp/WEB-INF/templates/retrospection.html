@@ -32,7 +32,7 @@
                 <td style="text-align: center">
                     <h4>
                         <div class="label label-default" style="display: block; width:230px; background-color: #DDD; color:#333; white-space: normal;">
-                            <p style="margin-top: 10px" th:text="${madSticker.content}"></p>
+                            <p style="margin-top: 10px" th:text="${madSticker.content}">Some mad sticker content.</p>
                         </div>
                     </h4>
                     <div th:if="${madSticker.composite}">
@@ -48,7 +48,7 @@
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </button>
                                     </form>
-                                    <p style="margin-top: 10px" th:text="${child.content}"></p>
+                                    <p style="margin-top: 10px" th:text="${child.content}">Some child sticker content.</p>
                                 </div>
                             </h5>
                         </div>
@@ -65,7 +65,7 @@
                                     <input type="hidden" name="compositeType" value="MAD" />
                                     <input type="hidden" name="leafId" value="" th:attr="value=${madSticker.id}" />
                                     <input type="hidden" name="leafType" value="MAD" />
-                                    <input type="submit" value="" th:attr="value=${compositeSticker.shortContent}" />
+                                    <input type="submit" value="sticker short content" th:attr="value=${compositeSticker.shortContent}" />
                                 </form>
                             </li>
                         </ul>
@@ -120,7 +120,7 @@
                 <td style="text-align: center">
                     <h4>
                         <div class="label label-default" style="display: block; width:230px; background-color: #DDD; color:#333; white-space: normal;">
-                            <p style="margin-top: 10px" th:text="${gladSticker.content}"></p>
+                            <p style="margin-top: 10px" th:text="${gladSticker.content}">Some glad sticker content.</p>
                         </div>
                     </h4>
                     <div th:if="${gladSticker.composite}">
@@ -136,7 +136,7 @@
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </button>
                                     </form>
-                                    <p style="margin-top: 10px" th:text="${child.content}"></p>
+                                    <p style="margin-top: 10px" th:text="${child.content}">Some child sticker content.</p>
                                 </div>
                             </h5>
                         </div>
@@ -153,7 +153,7 @@
                                     <input type="hidden" name="compositeType" value="GLAD" />
                                     <input type="hidden" name="leafId" value="" th:attr="value=${gladSticker.id}" />
                                     <input type="hidden" name="leafType" value="GLAD" />
-                                    <input type="submit" value="" th:attr="value=${compositeSticker.shortContent}" />
+                                    <input type="submit" value="some sticker short content" th:attr="value=${compositeSticker.shortContent}" />
                                 </form>
                             </li>
                         </ul>
@@ -169,6 +169,12 @@
                         <input type="hidden" name="type" value="GLAD" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${gladSticker.id}" />
                         <button class="btn btn-xs btn-info">Make Parent</button>
+                    </form>
+                    <form th:if="${!gladSticker.composite}" method="get" action="editStickerForm" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="GLAD" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${gladSticker.id}" />
+                        <button class="btn btn-xs btn-warning">Edit</button>
                     </form>
                 </td>
             </tr>
@@ -202,7 +208,7 @@
                 <td style="text-align: center">
                     <h4>
                         <div class="label label-default" style="display: block; width:230px; background-color: #DDD; color:#333; white-space: normal;">
-                            <p style="margin-top: 10px" th:text="${newIdeaSticker.content}"></p>
+                            <p style="margin-top: 10px" th:text="${newIdeaSticker.content}">Some new idea sticker content.</p>
                         </div>
                     </h4>
                     <div th:if="${newIdeaSticker.composite}">
@@ -218,7 +224,7 @@
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </button>
                                     </form>
-                                    <p style="margin-top: 10px" th:text="${child.content}"></p>
+                                    <p style="margin-top: 10px" th:text="${child.content}">Some child content.</p>
                                 </div>
                             </h5>
                         </div>
@@ -235,7 +241,7 @@
                                     <input type="hidden" name="compositeType" value="NEWIDEA" />
                                     <input type="hidden" name="leafId" value="" th:attr="value=${newIdeaSticker.id}" />
                                     <input type="hidden" name="leafType" value="NEWIDEA" />
-                                    <input type="submit" value="" th:attr="value=${compositeSticker.shortContent}" />
+                                    <input type="submit" value="Some sticker short content." th:attr="value=${compositeSticker.shortContent}" />
                                 </form>
                             </li>
                         </ul>
@@ -251,6 +257,12 @@
                         <input type="hidden" name="type" value="NEWIDEA" />
                         <input type="hidden" name="stickerId" value="" th:attr="value= ${newIdeaSticker.id}" />
                         <button class="btn btn-xs btn-info">Make Parent</button>
+                    </form>
+                    <form th:if="${!newIdeaSticker.composite}" method="get" action="editStickerForm" class="form-horizontal" style="float:left; margin-left:5px; margin-top: 5px">
+                        <input type="hidden" name="token" value="" th:attr="value = ${token}" />
+                        <input type="hidden" name="type" value="NEWIDEA" />
+                        <input type="hidden" name="stickerId" value="" th:attr="value= ${newIdeaSticker.id}" />
+                        <button class="btn btn-xs btn-warning">Edit</button>
                     </form>
                 </td>
             </tr>

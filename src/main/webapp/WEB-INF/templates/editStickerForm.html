@@ -21,7 +21,7 @@
                 <h2 class="form-heading">Please, fill in the form:</h2>
                 <div class="input-group"  style="width: 500px;">
                     <span class="input-group-addon" style="width: 150px">Sticker content:</span>
-                    <textarea class="form-control" name="newContent" th:text="${stickerContent}"></textarea>
+                    <textarea class="form-control" name="newContent" th:text="${stickerContent}">Old sticker content.</textarea>
                 </div>
                 <input type="hidden" name="token" value="" th:attr="value=${token}"/>
                 <input type="hidden" name="id" value="" th:attr="value=${id}"/>
