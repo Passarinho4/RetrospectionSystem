@@ -7,13 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
-import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.Type;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.ToIntFunction;
 
 /**
  * Created by Szymek.

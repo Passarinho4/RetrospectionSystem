@@ -7,8 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.*;
-import pl.com.tegess.RetrospectionSystem.repository.CounterRepository;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerComposite;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerLeaf;
+import pl.com.tegess.RetrospectionSystem.repositories.CounterRepository;
+import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
 
 /**
  * Created by Szymek.

@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
-import pl.com.tegess.RetrospectionSystem.model.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.Type;
-import pl.com.tegess.RetrospectionSystem.model.User;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
-import pl.com.tegess.RetrospectionSystem.repository.UserRepository;
+import pl.com.tegess.RetrospectionSystem.model.users.User;
+import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.repositories.UserRepository;
 
 /**
  * Created by Szymek.

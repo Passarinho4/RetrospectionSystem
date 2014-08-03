@@ -6,18 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.w3c.dom.html.HTMLDivElement;
 import pl.com.tegess.RetrospectionSystem.model.*;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
-import pl.com.tegess.RetrospectionSystem.repository.UserRepository;
+import pl.com.tegess.RetrospectionSystem.model.generators.DefaultGenerator;
+import pl.com.tegess.RetrospectionSystem.model.generators.Generator;
+import pl.com.tegess.RetrospectionSystem.model.users.Member;
+import pl.com.tegess.RetrospectionSystem.model.users.User;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.VoteStrategy;
+import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.repositories.UserRepository;
 
-import javax.jws.soap.SOAPBinding;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Created by Szymek.

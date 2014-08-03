@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  */
 
 @Configuration
-@EnableMongoRepositories("pl.com.tegess.RetrospectionSystem.repository")
+@EnableMongoRepositories("pl.com.tegess.RetrospectionSystem.repositories")
 public class MongoDBConfiguration extends AbstractMongoConfiguration {
 
     @Override

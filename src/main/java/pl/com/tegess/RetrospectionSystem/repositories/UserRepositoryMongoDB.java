@@ -1,13 +1,12 @@
-package pl.com.tegess.RetrospectionSystem.repository;
+package pl.com.tegess.RetrospectionSystem.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-import pl.com.tegess.RetrospectionSystem.model.Member;
-import pl.com.tegess.RetrospectionSystem.model.User;
+import pl.com.tegess.RetrospectionSystem.model.users.Member;
+import pl.com.tegess.RetrospectionSystem.model.users.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +31,21 @@ public class UserRepositoryMongoDB implements UserRepository {
     @Override
     public User getUserByToken(String token) {
         return this.mongoTemplate.findById(token, Member.class);
+    }
+
+    @Override
+    public List<User> getUsersByTokens(List<String> tokens) {
+
+        List<User> users = new ArrayList<User>();
+        for(String token: tokens){
+            users.add(getUserByToken(token));
+        }
+        return users;
+    }
+
+    @Override
+    public List<Member> getAllUsers() {
+        return this.mongoTemplate.findAll(Member.class);
     }
 
     @Override

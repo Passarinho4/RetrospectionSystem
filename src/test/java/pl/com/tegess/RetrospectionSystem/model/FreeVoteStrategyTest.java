@@ -2,8 +2,11 @@ package pl.com.tegess.RetrospectionSystem.model;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerLeaf;
+import pl.com.tegess.RetrospectionSystem.model.users.Member;
+import pl.com.tegess.RetrospectionSystem.model.users.User;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.FreeVoteStrategy;
 
 public class FreeVoteStrategyTest {
 
@@ -20,4 +23,14 @@ public class FreeVoteStrategyTest {
         Assert.assertEquals(true, underTest.canVote(user, sticker));
     }
 
+    @Test
+    public void testGetDescription() {
+
+        //given
+        FreeVoteStrategy underTest = new FreeVoteStrategy();
+
+        //then
+        Assert.assertEquals(String.class, underTest.getDescription().getClass());
+
+    }
 }

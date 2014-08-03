@@ -1,14 +1,12 @@
 package pl.com.tegess.RetrospectionSystem.model;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerLeaf;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class RetrospectionTest {
 

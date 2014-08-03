@@ -1,7 +1,8 @@
-package pl.com.tegess.RetrospectionSystem.model;
+package pl.com.tegess.RetrospectionSystem.model.users;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import pl.com.tegess.RetrospectionSystem.model.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +28,25 @@ public class Member implements User {
     private final String token;
 
     /**
+     * The user mail.
+     */
+    private String mail;
+    /**
      * The list, which contains ids of these stickers for which user has voted.
      */
     private List<Integer> votedStickersIds;
 
     /**
      * Default constructor for Member class. Creates new Member object,
-     * with token given as param and with empty votes list.
+     * with token given as param and with empty votes list. Default mail
+     * address is null.
      *
      * @param token the token to be set
      */
     public Member(String token) {
         this.token = token;
         this.votedStickersIds = new ArrayList<Integer>();
+        this.mail = null;
     }
 
     /**
@@ -96,6 +103,24 @@ public class Member implements User {
     public void removeStickerFromVoted(int stickerId) {
 
         this.votedStickersIds.remove(new Integer(stickerId));
+    }
+
+    /**
+     * Sets user mail address.
+     * @param mail the mail address.
+     */
+    @Override
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    /**
+     * Returns user mail address.
+     * @return mail address.
+     */
+    @Override
+    public String getMail() {
+        return this.mail;
     }
 
 }

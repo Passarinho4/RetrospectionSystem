@@ -1,6 +1,5 @@
-package pl.com.tegess.RetrospectionSystem.repository;
+package pl.com.tegess.RetrospectionSystem.repositories;
 
-import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -9,9 +8,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import pl.com.tegess.RetrospectionSystem.model.Counter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Szymek.

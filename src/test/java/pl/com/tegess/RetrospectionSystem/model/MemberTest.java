@@ -2,8 +2,7 @@ package pl.com.tegess.RetrospectionSystem.model;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import pl.com.tegess.RetrospectionSystem.model.users.Member;
 
 public class MemberTest {
 
@@ -17,7 +16,13 @@ public class MemberTest {
         Assert.assertEquals("token", underTest.getToken());
         Assert.assertEquals(0, underTest.getVotesNumber());
         Assert.assertEquals(0, underTest.getNumberOfVotesForSticker(2));
+        Assert.assertEquals(null, underTest.getMail());
 
+        //sets values
+        underTest.setMail("mail");
+
+        //then
+        Assert.assertEquals("mail", underTest.getMail());
     }
 
     @Test

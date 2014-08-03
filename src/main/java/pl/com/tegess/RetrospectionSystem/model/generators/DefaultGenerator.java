@@ -1,7 +1,7 @@
-package pl.com.tegess.RetrospectionSystem.model;
+package pl.com.tegess.RetrospectionSystem.model.generators;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
+import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
 
 import java.util.ArrayList;
 import java.util.List;

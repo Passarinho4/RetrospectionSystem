@@ -3,6 +3,9 @@ package pl.com.tegess.RetrospectionSystem.model;
 
 import org.junit.Assert;
 import org.junit.Test;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerComposite;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerLeaf;
 
 import java.util.ArrayList;
 import java.util.List;

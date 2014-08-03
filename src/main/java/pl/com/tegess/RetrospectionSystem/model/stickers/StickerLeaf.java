@@ -1,4 +1,6 @@
-package pl.com.tegess.RetrospectionSystem.model;
+package pl.com.tegess.RetrospectionSystem.model.stickers;
+
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 
 import java.util.ArrayList;
 import java.util.List;

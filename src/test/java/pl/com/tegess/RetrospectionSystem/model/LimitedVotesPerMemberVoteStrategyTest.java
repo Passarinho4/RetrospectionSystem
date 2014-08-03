@@ -2,8 +2,10 @@ package pl.com.tegess.RetrospectionSystem.model;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerLeaf;
+import pl.com.tegess.RetrospectionSystem.model.users.Member;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.LimitedVotesPerMemberVoteStrategy;
 
 public class LimitedVotesPerMemberVoteStrategyTest {
 
@@ -51,6 +53,17 @@ public class LimitedVotesPerMemberVoteStrategyTest {
 
         //then
         Assert.assertEquals(false, underTest.canVote(member, sticker));
+    }
+
+    @Test
+    public void testGetDescription() {
+
+        //given
+        LimitedVotesPerMemberVoteStrategy underTest = new LimitedVotesPerMemberVoteStrategy();
+
+        //then
+        Assert.assertEquals(String.class, underTest.getDescription().getClass());
+
     }
 
 }

@@ -1,4 +1,4 @@
-package pl.com.tegess.RetrospectionSystem.model;
+package pl.com.tegess.RetrospectionSystem.model.stickers;
 
 /**
  * Represent every sticker in RetrospectionSystem.
@@ -37,7 +37,7 @@ public interface Sticker {
 
     /**
      * Adds user token to list of users who voted for this sticker.
-     * @see pl.com.tegess.RetrospectionSystem.model.User
+     * @see pl.com.tegess.RetrospectionSystem.model.users.User
      *
      * @param token the user token.
      */
@@ -45,7 +45,7 @@ public interface Sticker {
 
     /**
      * Removes user token from list of users who voted for this sticker.
-     * @see pl.com.tegess.RetrospectionSystem.model.User
+     * @see pl.com.tegess.RetrospectionSystem.model.users.User
      *
      * @param token the user token.
      */
@@ -60,8 +60,8 @@ public interface Sticker {
     /**
      * Returns true if sticker is instance of StickerComposite.
      * Returns false if sticker is instance of StickerLeaf.
-     * @see pl.com.tegess.RetrospectionSystem.model.StickerComposite
-     * @see pl.com.tegess.RetrospectionSystem.model.StickerLeaf
+     * @see StickerComposite
+     * @see StickerLeaf
      *
      * @return true or false.
      */
@@ -77,7 +77,7 @@ public interface Sticker {
     /**
      * Returns true if user voted for this token. False if user didn't vote for
      * this token.
-     * @see pl.com.tegess.RetrospectionSystem.model.User
+     * @see pl.com.tegess.RetrospectionSystem.model.users.User
      *
      * @param token the user token.
      * @return true or false.

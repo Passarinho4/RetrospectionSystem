@@ -1,6 +1,5 @@
-package pl.com.tegess.RetrospectionSystem.repository;
+package pl.com.tegess.RetrospectionSystem.repositories;
 
-import org.springframework.stereotype.Repository;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 
 import java.util.List;

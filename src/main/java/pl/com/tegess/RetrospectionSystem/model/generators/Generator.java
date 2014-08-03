@@ -1,4 +1,4 @@
-package pl.com.tegess.RetrospectionSystem.model;
+package pl.com.tegess.RetrospectionSystem.model.generators;
 
 import java.util.List;
 

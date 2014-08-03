@@ -2,6 +2,8 @@ package pl.com.tegess.RetrospectionSystem.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
+import pl.com.tegess.RetrospectionSystem.model.stickers.StickerComposite;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -68,7 +70,7 @@ public class Retrospection {
     /**
      * Constructor sets retrospection id, author, question, members tokens
      * and default value of vote strategy (One for one).
-     * @see pl.com.tegess.RetrospectionSystem.model.OneForOneVoteStrategy
+     * @see pl.com.tegess.RetrospectionSystem.model.voteStrategy.OneForOneVoteStrategy
      *
      * @param retrospectionId the retrospection id.
      * @param author the retrospection author.
@@ -81,7 +83,7 @@ public class Retrospection {
         this.question = question;
         this.status = true;
         this.membersTokens = membersTokens;
-        this.voteStrategyClassName = "pl.com.tegess.RetrospectionSystem.model.OneForOneVoteStrategy";
+        this.voteStrategyClassName = "pl.com.tegess.RetrospectionSystem.model.voteStrategy.OneForOneVoteStrategy";
     }
 
     /**
@@ -152,7 +154,7 @@ public class Retrospection {
     /**
      * Returns stickers list of right member.
      *
-     * @see pl.com.tegess.RetrospectionSystem.model.User
+     * @see pl.com.tegess.RetrospectionSystem.model.users.User
      * @see pl.com.tegess.RetrospectionSystem.model.Type
      * @param type the sticker type.
      * @param token the member token.
@@ -256,8 +258,8 @@ public class Retrospection {
     /**
      * Returns all parents stickers list of right type.
      * @see pl.com.tegess.RetrospectionSystem.model.Type
-     * @see pl.com.tegess.RetrospectionSystem.model.StickerComposite
-     * @see pl.com.tegess.RetrospectionSystem.model.User
+     * @see pl.com.tegess.RetrospectionSystem.model.stickers.StickerComposite
+     * @see pl.com.tegess.RetrospectionSystem.model.users.User
      * @param type the stickers type.
      * @param token the user token.
      * @return sticker composite list.
@@ -293,10 +295,10 @@ public class Retrospection {
     /**
      * Sets retrospection vote strategy class name. (Without packages).
      * Strategy class have to implement VoteStrategy interface.
-     * @see pl.com.tegess.RetrospectionSystem.model.VoteStrategy
-     * @see pl.com.tegess.RetrospectionSystem.model.OneForOneVoteStrategy
-     * @see pl.com.tegess.RetrospectionSystem.model.FreeVoteStrategy
-     * @see pl.com.tegess.RetrospectionSystem.model.LimitedVotesPerMemberVoteStrategy
+     * @see pl.com.tegess.RetrospectionSystem.model.voteStrategy.VoteStrategy
+     * @see pl.com.tegess.RetrospectionSystem.model.voteStrategy.OneForOneVoteStrategy
+     * @see pl.com.tegess.RetrospectionSystem.model.voteStrategy.FreeVoteStrategy
+     * @see pl.com.tegess.RetrospectionSystem.model.voteStrategy.LimitedVotesPerMemberVoteStrategy
      * @param voteStrategyClassName the vote strategy class name.
      */
     public void setVoteStrategyClassName(String voteStrategyClassName) {

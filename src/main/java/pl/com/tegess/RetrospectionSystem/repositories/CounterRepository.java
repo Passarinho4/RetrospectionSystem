@@ -1,4 +1,4 @@
-package pl.com.tegess.RetrospectionSystem.repository;
+package pl.com.tegess.RetrospectionSystem.repositories;
 
 /**
  * Created by Szymek.

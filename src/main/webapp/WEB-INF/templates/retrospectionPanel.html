@@ -81,21 +81,42 @@
         </div>
         <a th:if="!${status}" th:href="'startAddingStickers?id=' + ${id}"><button class="btn btn-warning">Restart adding stickers!</button></a>
         <a th:href="'removeRetrospection?id=' + ${id}"><button class="btn btn-danger">Remove this retrospection!</button></a>
+        <form style="width: 300px; margin: 0 auto; margin-top: 5px" class="form-horizontal" method="post" action="addUsersMails" enctype="multipart/form-data">
+            <input class="form-control" type="file" name="file" accept=".csv"/>
+            <input type="hidden" name="id" value="" th:attr="value=${id}"/>
+            <input type="submit" class="form-control btn-default" value="Load mails from file!"/>
+        </form>
         <h2>Members tokens list:</h2>
         <table class="table table-stripped table-bordered">
             <thead>
                 <tr>
                     <th>Token</th>
                     <th>Link</th>
+                    <th>Mail</th>
+                    <th>Add/Edit mail</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="token : ${tokensList}">
-                    <td><span th:text="${token}"></span></td>
+                <tr th:each="user : ${usersList}">
+                    <td><span th:text="${user.token}"></span></td>
                     <td>
-                        <a th:href="'http://localhost:8080/RetrospectionSystem/retrospection?token='+${token}">
-                        <h4>http://localhost:8080/RetrospectionSystem/retrospection?token=<span th:text="${token}"></span></h4>
+                        <a th:href="'http://localhost:8080/RetrospectionSystem/retrospection?token='+${user.token}">
+                        <h4>http://localhost:8080/RetrospectionSystem/retrospection?token=<span th:text="${user.token}"></span></h4>
                         </a>
+                    </td>
+                    <td>
+                        <span th:if="${user.mail}==null">User mail is not set.</span>
+                        <span th:text="${user.mail}">User mail</span>
+                    </td>
+                    <td>
+                        <form class="form-horizontal" method="get" action="addUserMail">
+                            <div class="input-group" style="margin-bottom: 5px">
+                                <input type="text" class="form-control" name="mail" value="" th:attr="value=${user.mail}"/>
+                            </div>
+                            <input type="hidden" name="token" value="" th:attr="value=${user.token}"/>
+                            <input type="hidden" name="id" value="" th:attr="value=${id}"/>
+                            <input type="submit" class="form-control btn-primary" value="Save"/>
+                        </form>
                     </td>
                 </tr>
             </tbody>

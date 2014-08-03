@@ -5,11 +5,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.com.tegess.RetrospectionSystem.model.Retrospection;
-import pl.com.tegess.RetrospectionSystem.repository.RetrospectionRepository;
-
-import java.util.ArrayList;
-import java.util.List;
+import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
 
 /**
  * Created by Szymek.
