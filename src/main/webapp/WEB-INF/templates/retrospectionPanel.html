@@ -86,6 +86,8 @@
             <input type="hidden" name="id" value="" th:attr="value=${id}"/>
             <input type="submit" class="form-control btn-default" value="Load mails from file!"/>
         </form>
+        <a th:href="'sendTokens?id=' + ${id}"><button class="btn btn-info">Send tokens to mails!</button></a>
+        <a th:if="!${status}" th:href="'sendVoteStrategy?id=' + ${id}"><button class="btn btn-info">Send vote info to mails!</button></a>
         <h2>Members tokens list:</h2>
         <table class="table table-stripped table-bordered">
             <thead>

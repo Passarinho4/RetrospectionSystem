@@ -78,18 +78,20 @@ public class RetrospectionPanelController {
         } else {
             return "404";
         }
-
-        UserRepository repository = applicationContext.getBean(UserRepository.class);
+        RetrospectionRepository retrospectionRepository = applicationContext.getBean(RetrospectionRepository.class);
+        UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         MailsParserFactory factory = new DefaultMailsParserFactory();
         MailsParser parser = factory.createMailsParser(file.getContentType());
         List<String> mails = parser.getMails(f);
-        List<Member> members = repository.getAllUsers();
+        List<String> tokens = retrospectionRepository.getRetrospectionById(id).getMembersTokensList();
         Iterator<String> mailsIterator = mails.iterator();
-        for (Member m : members) {
+        User user;
+        for (String token : tokens) {
             if (mailsIterator.hasNext()) {
-                m.setMail(mailsIterator.next());
+                user = userRepository.getUserByToken(token);
+                user.setMail(mailsIterator.next());
+                userRepository.modifyUser(user);
             }
-            repository.modifyUser(m);
         }
         if (f != null) {
             f.delete();

@@ -2,12 +2,11 @@ package pl.com.tegess.RetrospectionSystem.configuration;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -16,8 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import pl.com.tegess.RetrospectionSystem.model.Mail;
 
 import javax.servlet.MultipartConfigElement;
+import java.util.Properties;
 
 /**
  * Created by Szymek.
@@ -70,8 +71,29 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public StandardServletMultipartResolver multipartResolver() {
-        StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
         return new StandardServletMultipartResolver();
+    }
+
+    @Bean
+    public MailSender mailSender(){
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("passarinho4@gmail.com");
+        mailSender.setPassword("narty123");
+
+        Properties properties = new Properties();
+        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.starttls.enable", "true");
+        mailSender.setJavaMailProperties(properties);
+        return mailSender;
+    }
+
+    @Bean
+    public Mail mail(){
+        Mail mail = new Mail();
+        mail.setMailSender(mailSender());
+        return mail;
     }
 
 }

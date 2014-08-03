@@ -11,9 +11,8 @@ public class Mail {
 
     private MailSender mailSender;
 
-    public void sendMail(String from, String to, String subject, String message){
+    public void sendMail(String to, String subject, String message){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(from);
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);
         mailMessage.setText(message);

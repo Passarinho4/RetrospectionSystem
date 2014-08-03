@@ -11,7 +11,9 @@ import pl.com.tegess.RetrospectionSystem.model.generators.DefaultGenerator;
 import pl.com.tegess.RetrospectionSystem.model.generators.Generator;
 import pl.com.tegess.RetrospectionSystem.model.users.Member;
 import pl.com.tegess.RetrospectionSystem.model.users.User;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.DefaultVoteStrategyFactory;
 import pl.com.tegess.RetrospectionSystem.model.voteStrategy.VoteStrategy;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.VoteStrategyFactory;
 import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
 import pl.com.tegess.RetrospectionSystem.repositories.UserRepository;
 
@@ -44,7 +46,8 @@ public class RetrospectionController {
             model.addAttribute("newIdeaStickerList",retrospection.getStickersList(Type.NEWIDEA, token));
             return "retrospection";
         }else{
-            VoteStrategy voteStrategy = createVoteStrategy(retrospection.getVoteStrategyClassName());
+            VoteStrategyFactory factory = new DefaultVoteStrategyFactory();
+            VoteStrategy voteStrategy = factory.getVoteStrategy(retrospection.getVoteStrategyClassName());
             model.addAttribute("voteStrategy", voteStrategy);
             model.addAttribute("user", userRepository.getUserByToken(token));
             model.addAttribute("madCompositeStickersList", retrospection.getCompositeStickersList(Type.MAD, null));
@@ -57,21 +60,6 @@ public class RetrospectionController {
         }
     }
 
-    private VoteStrategy createVoteStrategy(String voteStrategyClassName) {
-        Class c = null;
-        try {
-            c = Class.forName("pl.com.tegess.RetrospectionSystem.model."+ voteStrategyClassName);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Object o = null;
-        try {
-            o = c.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return (VoteStrategy)o;
-    }
 
     @RequestMapping("showRetrospection")
     public String showRetrospection(@RequestParam(value = "id") String id,

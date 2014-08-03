@@ -44,11 +44,6 @@ public class UserRepositoryMongoDB implements UserRepository {
     }
 
     @Override
-    public List<Member> getAllUsers() {
-        return this.mongoTemplate.findAll(Member.class);
-    }
-
-    @Override
     public void modifyUser(User user) {
         this.mongoTemplate.save(user);
     }

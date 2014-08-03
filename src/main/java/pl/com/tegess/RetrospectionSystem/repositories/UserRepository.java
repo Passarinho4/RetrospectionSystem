@@ -14,7 +14,6 @@ public interface UserRepository {
     public void removeUser(User user);
     public User getUserByToken(String token);
     public List<User> getUsersByTokens(List<String> tokens);
-    public List<Member> getAllUsers();
     public void modifyUser(User user);
     public void removeAllUsers(List<String> tokens);
 }
