@@ -6,4 +6,6 @@ To run this application you have to do following steps:
 4. Download this project and configure Tomcat in Intellij.
 5. Run. 
 
+If upload file doesn't work, you should edit your tomcat conf/context.xml and change <Context> to <Context allowCasualMultipartParsing="true">. Then restart server.
+
 It should work, if not please write: passarinho4@gmail.com
