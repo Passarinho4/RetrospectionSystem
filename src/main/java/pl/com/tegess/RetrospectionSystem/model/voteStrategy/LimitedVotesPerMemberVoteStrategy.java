@@ -1,5 +1,7 @@
 package pl.com.tegess.RetrospectionSystem.model.voteStrategy;
 
+import pl.com.tegess.RetrospectionSystem.model.Retrospection;
+import pl.com.tegess.RetrospectionSystem.model.Type;
 import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.users.User;
 
@@ -60,5 +62,18 @@ public class LimitedVotesPerMemberVoteStrategy implements VoteStrategy {
     public String getDescription() {
         String description = "Limited votes per member, means that every user has only ";
         return description + this.maxVotesPerMember + " votes";
+    }
+
+    /**
+     * Returns max value of votes per one sticker. In this strategy returns
+     * members Number * limit of votes per user.
+     *
+     * @param retrospection the retrospection.
+     * @param type the sticker's type.
+     * @return the max value.
+     */
+    @Override
+    public int getMaxVotesValue(Retrospection retrospection, Type type) {
+        return this.maxVotesPerMember*retrospection.getMembersNumber();
     }
 }

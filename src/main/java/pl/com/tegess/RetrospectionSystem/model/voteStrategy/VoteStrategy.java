@@ -1,5 +1,7 @@
 package pl.com.tegess.RetrospectionSystem.model.voteStrategy;
 
+import pl.com.tegess.RetrospectionSystem.model.Retrospection;
+import pl.com.tegess.RetrospectionSystem.model.Type;
 import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.users.User;
 
@@ -31,4 +33,13 @@ public interface VoteStrategy {
      * @return the strategy description.
      */
     public String getDescription();
+
+    /**
+     * Returns max value of votes per one sticker.
+     *
+     * @param retrospection the retrospection.
+     * @param type the sticker.
+     * @return the max value.
+     */
+    public int getMaxVotesValue(Retrospection retrospection, Type type);
 }

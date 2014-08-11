@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.com.tegess.RetrospectionSystem.model.Retrospection;
 import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.Type;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.DefaultVoteStrategyFactory;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.VoteStrategy;
+import pl.com.tegess.RetrospectionSystem.model.voteStrategy.VoteStrategyFactory;
 import pl.com.tegess.RetrospectionSystem.repositories.RetrospectionRepository;
 
 import java.util.Comparator;
@@ -31,10 +34,12 @@ public class ShowStatisticsController {
         Retrospection retrospection = repository.getRetrospectionById(id);
         model.addAttribute("type", type.toString().replaceFirst("I", " I").toUpperCase());
         List<Sticker> list = retrospection.getStickersList(type, null);
-        Integer membersNumber = retrospection.getMembersNumber();
-        list.sort(Comparator.comparingInt(value -> membersNumber-value.getVotes()));
+        VoteStrategyFactory factory = new DefaultVoteStrategyFactory();
+        VoteStrategy voteStrategy = factory.getVoteStrategy(retrospection.getVoteStrategyClassName());
+        int maxValue = voteStrategy.getMaxVotesValue(retrospection, type);
+        list.sort(Comparator.comparingInt(value -> maxValue-value.getVotes()));
         model.addAttribute("stickersList", list);
-        model.addAttribute("membersNumber", membersNumber);
+        model.addAttribute("maxValue", maxValue);
         return "showStatistics";
     }
 }

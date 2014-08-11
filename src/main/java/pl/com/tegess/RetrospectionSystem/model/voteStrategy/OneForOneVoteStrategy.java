@@ -1,5 +1,7 @@
 package pl.com.tegess.RetrospectionSystem.model.voteStrategy;
 
+import pl.com.tegess.RetrospectionSystem.model.Retrospection;
+import pl.com.tegess.RetrospectionSystem.model.Type;
 import pl.com.tegess.RetrospectionSystem.model.stickers.Sticker;
 import pl.com.tegess.RetrospectionSystem.model.users.User;
 
@@ -39,5 +41,17 @@ public class OneForOneVoteStrategy implements VoteStrategy {
     @Override
     public String getDescription() {
         return "One for one vote strategy means that every user can vote only once per each sticker.";
+    }
+
+    /**
+     * Returns max value of votes per one sticker. In this strategy
+     * returns number of users.
+     * @param retrospection the retrospection.
+     * @param type the sticker's type.
+     * @return the max value.
+     */
+    @Override
+    public int getMaxVotesValue(Retrospection retrospection, Type type) {
+        return retrospection.getMembersNumber();
     }
 }
