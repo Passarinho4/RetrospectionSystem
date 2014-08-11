@@ -35,6 +35,7 @@ public class RetrospectionController {
         UserRepository userRepository = applicationContext.getBean(UserRepository.class);
         Retrospection retrospection = repository.getRetrospectionByToken(token);
         if(retrospection==null) return "404";
+        model.addAttribute("question", retrospection.getQuestion());
         model.addAttribute("token", token);
         model.addAttribute("author", token);
         if(retrospection.getStatus()) {
